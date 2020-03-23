@@ -16,6 +16,8 @@ namespace UMDGeneral.Settings
             string umdurl = ConfigurationManager.AppSettings["UmdUrl"];
             string winsysport = ConfigurationManager.AppSettings["WinsysPort"];
             string winsysurl = ConfigurationManager.AppSettings["WinsysUrl"];
+            string sqlconn = ConfigurationManager.AppSettings["SQLConn"];
+
             string WinsysSrcFile = ConfigurationManager.AppSettings["WinsysSrcFilePath"];
             string WinsysDstFile = ConfigurationManager.AppSettings["WinsysDstFilePath"];
 

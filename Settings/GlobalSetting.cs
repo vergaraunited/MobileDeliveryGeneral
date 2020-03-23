@@ -44,7 +44,7 @@ namespace UMDGeneral.Settings
                 AppName = config.AppName,
                 LogLevel = config.LogLevel,
                 LogPath = config.LogPath,
-
+                SQLConn = config.SQLConn,
                 srvSet = new SocketSettings()
                 {
                     name = config.srvSet.name,

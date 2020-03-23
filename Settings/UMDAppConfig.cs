@@ -1,6 +1,4 @@
 ﻿using MobileDeliveryLogger;
-using System;
-using System.Configuration;
 
 namespace UMDGeneral.Settings
 {
@@ -11,6 +9,7 @@ namespace UMDGeneral.Settings
         public string Version { get; set; }
         public string LogPath { get; set; }
         public LogLevel LogLevel {get; set;}
+        public string SQLConn { get; set; }
         public SocketSettings srvSet { get; set; }
         public WinsysFiles winsysFiles {get; set;}
 
@@ -25,7 +24,7 @@ namespace UMDGeneral.Settings
                 umdurl = "localhost",
                 WinSysPort = 8181,
                 WinSysUrl = "localhost"
-            };
+            };            
         }
     }
 }
