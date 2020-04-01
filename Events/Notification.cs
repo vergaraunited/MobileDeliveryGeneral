@@ -64,24 +64,26 @@ namespace UMDGeneral.Events
         protected bool SetProperty<T>(ref T storage, T value,
                                       [CallerMemberName] string propertyName = null)
         {
-            //if (Object.Equals(storage, value))
-            //    return false;
+            if (!Object.Equals(storage, value))
+            {   // return false;
 
-            //T stor = storage;
-            //if (ViewContext != null && ViewContext != SynchronizationContext.Current)
-            //{
-            //    ViewContext.Post(_ =>
-            //    {
-            //        stor = value;
-            //        OnPropertyChanged(propertyName);
-            //    }, null);
-            //}
-            //else
-            //{
-            storage = value;
-            OnPropertyChanged(propertyName);
-            // }
-            return true;
+                T stor = storage;
+                if (ViewContext != null && ViewContext != SynchronizationContext.Current)
+                {
+                    ViewContext.Post(_ =>
+                    {
+                        stor = value;
+                        OnPropertyChanged(propertyName);
+                    }, null);
+                }
+                else
+                {
+                    storage = value;
+                    OnPropertyChanged(propertyName);
+                }
+                return true;
+            }
+            return false;
         }
 
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)

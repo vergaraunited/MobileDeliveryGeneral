@@ -3,7 +3,7 @@ using UMDGeneral.Definitions;
 
 namespace UMDGeneral.Interfaces.DataInterfaces
 {
-    public interface isaSettings
+    public interface isaSettings: IMDMMessage
     {
         string LogLevel{ get; set; }
         string Url { get; set; }
@@ -12,7 +12,7 @@ namespace UMDGeneral.Interfaces.DataInterfaces
         int WinsysPort { get; set; }
         string UMDUrl { get; set;  }
         int UMDPort {get;set;}
-        MsgTypes.eCommand Command { get; set; }
-        Guid RequestId { get; set; }
+       // MsgTypes.eCommand Command { get; set; }
+       // Guid RequestId { get; set; }
     }
 }

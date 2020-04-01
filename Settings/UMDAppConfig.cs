@@ -10,12 +10,13 @@ namespace UMDGeneral.Settings
         public string LogPath { get; set; }
         public LogLevel LogLevel {get; set;}
         public string SQLConn { get; set; }
-        public SocketSettings srvSet { get; set; }
+        SocketSettings _srvSet;
+        public SocketSettings srvSet { get { if (_srvSet == null) InitSrvSet(); return _srvSet; } set { if (value!=null) _srvSet = value; } }
         public WinsysFiles winsysFiles {get; set;}
 
         public void InitSrvSet()
         {
-            srvSet = new SocketSettings()
+            _srvSet = new SocketSettings()
             {
                 name = AppName,
                 port = 81,

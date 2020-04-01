@@ -1,4 +1,5 @@
 ﻿using MobileDeliveryLogger;
+using Plugin.Settings.Abstractions;
 using System;
 using System.Configuration;
 

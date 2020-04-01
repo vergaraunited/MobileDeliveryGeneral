@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup Label="Globals">
     <SccProjectName>SAK</SccProjectName>
@@ -12,33 +12,33 @@
     <LangVersion>7.3</LangVersion>
     <RunPostBuildEvent>Always</RunPostBuildEvent>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>1.2.5.0</AssemblyVersion>
-    <FileVersion>1.2.5.0</FileVersion>
-    <Version>1.2.5</Version>
-    <PackageReleaseNotes>SQLConn in config.  Configurable connection string</PackageReleaseNotes>
+    <AssemblyVersion>1.3.0.0</AssemblyVersion>
+    <FileVersion>1.3.0.0</FileVersion>
+    <Version>1.3.0</Version>
+    <PackageReleaseNotes>Update to logger nuspec dependency.</PackageReleaseNotes>
     <Description>General code shared amongst Mobile Delivery Applications</Description>
     <PackageTags>General Base MobileDelivery</PackageTags>
     <PackageIconUrl>https://unitedwindowmfg.com/wp-content/uploads/2017/02/New-Logo-4.png</PackageIconUrl>
+    <RepositoryUrl>https://github.com/vergaraunited/mobiledeliverygeneral.git</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="EntityFramework" Version="6.4.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.IO.RecyclableMemoryStream" Version="1.3.0" />
+    <PackageReference Include="MobileDeliveryLogger" Version="1.2.0" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
     <PackageReference Include="Xam.Plugins.Settings" Version="3.1.1" />
   </ItemGroup>
  
-  <ItemGroup Condition="'$(Configuration)' == 'Release'">
-    <PackageReference Include="MobileDeliveryLogger" Version="1.1.1" />
-  </ItemGroup>
-  
-  <ItemGroup Condition="'$(Configuration)' != 'Release'">
-    <ProjectReference Include="..\MobileDeliveryLogger\MobileDeliveryLogger.csproj" />
-  </ItemGroup>
-  
+
   <ItemGroup>
     <Folder Include="Threading\" />
   </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="nuget restore $(ProjectPath)" />
+  </Target>
 
 </Project>
