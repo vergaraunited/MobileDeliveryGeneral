@@ -47,6 +47,7 @@ namespace MobileDeliveryGeneral.Settings
                     WinSysPort = wport,
                     WinSysUrl = winsysurl
                 },
+                SQLConn = sqlconn,
                 winsysFiles = new WinsysFiles() { WinsysDstFile = WinsysDstFile, WinsysSrcFile = WinsysSrcFile },
                 LogPath = logfilepath,
                 LogLevel = eloglevel
