@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using UMDGeneral.Interfaces;
+using MobileDeliveryGeneral.Interfaces;
 
-namespace UMDGeneral.Utilities
+namespace MobileDeliveryGeneral.Utilities
 {
     public class ProcessMessages
     {

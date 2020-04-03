@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Threading.Tasks;
-using UMDGeneral.Data;
-using UMDGeneral.Interfaces.DataInterfaces;
-using static UMDGeneral.Definitions.enums;
-using static UMDGeneral.Definitions.MsgTypes;
+using MobileDeliveryGeneral.Data;
+using MobileDeliveryGeneral.Interfaces.DataInterfaces;
+using static MobileDeliveryGeneral.Definitions.enums;
+using static MobileDeliveryGeneral.Definitions.MsgTypes;
 
-namespace UMDGeneral.DataManager.Interfaces
+namespace MobileDeliveryGeneral.DataManager.Interfaces
 {
     public interface isaDataAccess<Connection, Command, Reader> 
         where Connection : DbConnection, ICloneable, new() where Command : DbCommand, ICloneable, new() where Reader : DbDataReader

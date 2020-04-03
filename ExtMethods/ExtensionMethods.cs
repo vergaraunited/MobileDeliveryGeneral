@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using static UMDGeneral.Definitions.MsgTypes;
+using static MobileDeliveryGeneral.Definitions.MsgTypes;
 
-namespace UMDGeneral.ExtMethods
+namespace MobileDeliveryGeneral.ExtMethods
 {
 
     public static class ExtensionMethods

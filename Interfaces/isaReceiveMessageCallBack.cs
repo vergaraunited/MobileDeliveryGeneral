@@ -1,6 +1,6 @@
-﻿using static UMDGeneral.Definitions.MsgTypes;
+﻿using static MobileDeliveryGeneral.Definitions.MsgTypes;
 
-namespace UMDGeneral.Interfaces
+namespace MobileDeliveryGeneral.Interfaces
 {
     public delegate isaCommand ReceiveMsgDelegate(isaCommand cmd);
         

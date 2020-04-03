@@ -1,6 +1,6 @@
 ﻿using MobileDeliveryLogger;
 
-namespace UMDGeneral.Settings
+namespace MobileDeliveryGeneral.Settings
 {
    
     public class UMDAppConfig

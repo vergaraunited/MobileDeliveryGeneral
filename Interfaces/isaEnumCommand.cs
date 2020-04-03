@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace UMDGeneral.Interfaces
+namespace MobileDeliveryGeneral.Interfaces
 {
     public interface isaEnumCommand<E>
     {

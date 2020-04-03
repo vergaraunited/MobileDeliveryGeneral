@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace UMDGeneral.Definitions
+namespace MobileDeliveryGeneral.Definitions
 {
     public static class enums
     {

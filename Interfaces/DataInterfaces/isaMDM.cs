@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using UMDGeneral.Interfaces;
+using MobileDeliveryGeneral.Interfaces;
 
-namespace UMDGeneral.DataManager.Interfaces
+namespace MobileDeliveryGeneral.DataManager.Interfaces
 {
     //Interface into the Mobile Data Manager
     public interface isaMDM

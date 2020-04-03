@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
-using static UMDGeneral.Definitions.MsgTypes;
+using static MobileDeliveryGeneral.Definitions.MsgTypes;
 
-namespace UMDGeneral.Utilities
+namespace MobileDeliveryGeneral.Utilities
 {
 
     public static class Serializer

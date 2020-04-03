@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace UMDGeneral.Definitions
+namespace MobileDeliveryGeneral.Definitions
 {
     public enum status { Pending, Uploaded, Released, Init, Releasing, Completed}
     public class Request

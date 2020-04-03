@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UMDGeneral.Interfaces.Interfaces
+namespace MobileDeliveryGeneral.Interfaces.Interfaces
 {
     public interface IWebSocketServer : IDisposable
     {

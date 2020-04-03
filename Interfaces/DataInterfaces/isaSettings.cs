@@ -1,7 +1,7 @@
 ﻿using System;
-using UMDGeneral.Definitions;
+using MobileDeliveryGeneral.Definitions;
 
-namespace UMDGeneral.Interfaces.DataInterfaces
+namespace MobileDeliveryGeneral.Interfaces.DataInterfaces
 {
     public interface isaSettings: IMDMMessage
     {

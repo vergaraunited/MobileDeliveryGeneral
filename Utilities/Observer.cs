@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace UMDGeneral.Utilities
+namespace MobileDeliveryGeneral.Utilities
 {
     public class AnonDisposable : IDisposable
     { //if only AnonymousDisposable was public this would not be needed

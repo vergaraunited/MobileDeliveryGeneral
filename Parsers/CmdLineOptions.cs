@@ -143,7 +143,7 @@ using System.Linq;
 using NDesk.Options;
 #endif
 
-namespace UMDGeneral.Parsers
+namespace MobileDeliveryGeneral.Parsers
 {
 	public class OptionValueCollection : IList, IList<string> {
 

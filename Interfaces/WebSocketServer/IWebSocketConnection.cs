@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace UMDGeneral.Interfaces.Interfaces
+namespace MobileDeliveryGeneral.Interfaces.Interfaces
 {
     public interface IWebSocketConnection
     {

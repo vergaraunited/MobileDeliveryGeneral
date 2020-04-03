@@ -2,12 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using UMDGeneral.Data;
-using UMDGeneral.Definitions;
-using UMDGeneral.Interfaces;
-using static UMDGeneral.Definitions.MsgTypes;
+using MobileDeliveryGeneral.Data;
+using MobileDeliveryGeneral.Definitions;
+using MobileDeliveryGeneral.Interfaces;
+using static MobileDeliveryGeneral.Definitions.MsgTypes;
 
-namespace UMDGeneral.Utilities
+namespace MobileDeliveryGeneral.Utilities
 {
     public delegate isaCommand RxMsg(isaCommand cmd);
     public delegate bool TxMsg(isaCommand cmd);

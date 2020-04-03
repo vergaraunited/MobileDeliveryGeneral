@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 
-namespace UMDGeneral.Events
+namespace MobileDeliveryGeneral.Events
 {
     public class Notification : INotifyPropertyChanged
     {

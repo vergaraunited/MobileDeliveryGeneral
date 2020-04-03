@@ -1,7 +1,7 @@
-﻿using UMDGeneral.Interfaces.Interfaces;
-using static UMDGeneral.Definitions.MsgTypes;
+﻿using MobileDeliveryGeneral.Interfaces.Interfaces;
+using static MobileDeliveryGeneral.Definitions.MsgTypes;
 
-namespace UMDGeneral.Interfaces
+namespace MobileDeliveryGeneral.Interfaces
 {
     public delegate bool SendMsgDelegate(isaCommand cmd);
 

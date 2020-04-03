@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
-using UMDGeneral.Data;
-using UMDGeneral.Definitions;
-using UMDGeneral.ExtMethods;
-using UMDGeneral.Interfaces;
-using UMDGeneral.Interfaces.DataInterfaces;
-using static UMDGeneral.Definitions.MsgTypes;
+using MobileDeliveryGeneral.Data;
+using MobileDeliveryGeneral.Definitions;
+using MobileDeliveryGeneral.ExtMethods;
+using MobileDeliveryGeneral.Interfaces;
+using MobileDeliveryGeneral.Interfaces.DataInterfaces;
+using static MobileDeliveryGeneral.Definitions.MsgTypes;
 
-namespace UMDGeneral.Threading
+namespace MobileDeliveryGeneral.Threading
 {
     //public delegate bool SendMsgDelegate(isaCommand cmd);
 

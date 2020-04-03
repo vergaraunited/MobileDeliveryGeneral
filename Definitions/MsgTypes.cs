@@ -4,11 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
-using UMDGeneral.Data;
-using UMDGeneral.ExtMethods;
-using static UMDGeneral.Definitions.enums;
+using MobileDeliveryGeneral.Data;
+using MobileDeliveryGeneral.ExtMethods;
+using static MobileDeliveryGeneral.Definitions.enums;
 
-namespace UMDGeneral.Definitions
+namespace MobileDeliveryGeneral.Definitions
 {
     public class MsgTypes
     {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using static UMDGeneral.Definitions.MsgTypes;
+using static MobileDeliveryGeneral.Definitions.MsgTypes;
 
-namespace UMDGeneral.Interfaces.DataInterfaces
+namespace MobileDeliveryGeneral.Interfaces.DataInterfaces
 {
     public interface IMDMMessage
     {

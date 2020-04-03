@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace UMDGeneral.Interfaces.Interfaces
+namespace MobileDeliveryGeneral.Interfaces.Interfaces
 {
     public interface IHandler
     {

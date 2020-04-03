@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace UMDGeneral.Utilities
+namespace MobileDeliveryGeneral.Utilities
 {
     public static class Converters
     {

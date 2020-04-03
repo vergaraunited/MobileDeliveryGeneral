@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace UMDGeneral.ExtMethods
+namespace MobileDeliveryGeneral.ExtMethods
 {
     public static class DBExtMethods
     {

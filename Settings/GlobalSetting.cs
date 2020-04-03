@@ -1,6 +1,6 @@
-﻿using UMDGeneral.Settings;
+﻿using MobileDeliveryGeneral.Settings;
 
-namespace UMDGeneral.Settings
+namespace MobileDeliveryGeneral.Settings
 {
     public static class GlobalSetting
     {
@@ -34,7 +34,7 @@ namespace UMDGeneral.Settings
             {
                 config.winsysFiles = new WinsysFiles()
                 {
-                    WinsysDstFile = UMDGeneral.Utilities.HomeDirectoryPaths.GetUserHome(config.AppName),
+                    WinsysDstFile = MobileDeliveryGeneral.Utilities.HomeDirectoryPaths.GetUserHome(config.AppName),
                     WinsysSrcFile = @"\\Fs01\vol1\Winsys32\DATA"
                 };
             }

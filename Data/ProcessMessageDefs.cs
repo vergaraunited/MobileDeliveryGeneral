@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using UMDGeneral.Interfaces.DataInterfaces;
-using static UMDGeneral.Definitions.MsgTypes;
+using MobileDeliveryGeneral.Interfaces.DataInterfaces;
+using static MobileDeliveryGeneral.Definitions.MsgTypes;
 
-namespace UMDGeneral.Data
+namespace MobileDeliveryGeneral.Data
 {
    // public sealed class ProcessMessage
     //{

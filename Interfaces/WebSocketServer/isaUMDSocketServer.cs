@@ -1,4 +1,4 @@
-﻿namespace UMDGeneral.Interfaces.WebSocketServer
+﻿namespace MobileDeliveryGeneral.Interfaces.WebSocketServer
 {
     public interface isaUMDSocketServer
     {

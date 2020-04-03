@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace UMDGeneral.Interfaces.Services
+namespace MobileDeliveryGeneral.Interfaces.Services
 {
     public interface isaCustomerService<IMDMMessage>
     {

@@ -1,8 +1,8 @@
 ﻿using System;
-using UMDGeneral.Interfaces;
-using static UMDGeneral.Definitions.MsgTypes;
+using MobileDeliveryGeneral.Interfaces;
+using static MobileDeliveryGeneral.Definitions.MsgTypes;
 
-namespace UMDGeneral.Utilities
+namespace MobileDeliveryGeneral.Utilities
 {
     public class ReceiveMessages : isaReceiveMessageCallback
     {
@@ -21,10 +21,10 @@ namespace UMDGeneral.Utilities
 /*
 
     using System;
-using UMDGeneral.Interfaces;
-using static UMDGeneral.Definitions.MsgTypes;
+using MobileDeliveryGeneral.Interfaces;
+using static MobileDeliveryGeneral.Definitions.MsgTypes;
 
-namespace UMDGeneral.Utilities
+namespace MobileDeliveryGeneral.Utilities
 {
     public class ReceiveMessages : isaReceiveMessageCallback
     {

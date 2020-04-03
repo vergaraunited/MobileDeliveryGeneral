@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using UMDGeneral.Utilities;
+using MobileDeliveryGeneral.Utilities;
 
-namespace UMDGeneral.Interfaces.Interfaces
+namespace MobileDeliveryGeneral.Interfaces.Interfaces
 {
     public interface IWebSocketConnectionInfo
     {

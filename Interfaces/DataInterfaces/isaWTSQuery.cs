@@ -1,4 +1,4 @@
-﻿namespace UMDGeneral.DataManager.Interfaces
+﻿namespace MobileDeliveryGeneral.DataManager.Interfaces
 {
     public interface isaWTSQuery
     {

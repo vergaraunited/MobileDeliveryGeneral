@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 
-namespace UMDGeneral.Data
+namespace MobileDeliveryGeneral.Data
 {
     public class WinSysDBFile
     {

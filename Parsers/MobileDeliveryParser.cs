@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using UMDGeneral.Interfaces;
-using static UMDGeneral.Definitions.MsgTypes;
+using MobileDeliveryGeneral.Interfaces;
+using static MobileDeliveryGeneral.Definitions.MsgTypes;
 
-namespace UMDGeneral.Parsers
+namespace MobileDeliveryGeneral.Parsers
 {
     public class MobileDeliveryParser : isaCommandParser<Command>
     {

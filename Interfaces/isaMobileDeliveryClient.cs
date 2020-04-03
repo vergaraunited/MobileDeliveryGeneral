@@ -1,9 +1,9 @@
 ﻿using System;
-using UMDGeneral.Settings;
-using UMDGeneral.Utilities;
-using static UMDGeneral.Definitions.MsgTypes;
+using MobileDeliveryGeneral.Settings;
+using MobileDeliveryGeneral.Utilities;
+using static MobileDeliveryGeneral.Definitions.MsgTypes;
 
-namespace UMDGeneral.Interfaces
+namespace MobileDeliveryGeneral.Interfaces
 {
     public interface isaMobileDeliveryClient : isaReceiveMessageCallback, isaSendMessageCallback
     {

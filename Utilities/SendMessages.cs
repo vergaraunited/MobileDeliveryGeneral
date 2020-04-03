@@ -1,8 +1,8 @@
-﻿using UMDGeneral.Interfaces;
-using UMDGeneral.Interfaces.Interfaces;
-using static UMDGeneral.Definitions.MsgTypes;
+﻿using MobileDeliveryGeneral.Interfaces;
+using MobileDeliveryGeneral.Interfaces.Interfaces;
+using static MobileDeliveryGeneral.Definitions.MsgTypes;
 
-namespace UMDGeneral.Utilities
+namespace MobileDeliveryGeneral.Utilities
 {
     public class SendMessages : isaSendMessageCallback
     {

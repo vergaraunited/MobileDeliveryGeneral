@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace UMDGeneral.Interfaces.DataInterfaces
+namespace MobileDeliveryGeneral.Interfaces.DataInterfaces
 {
     public interface isWinsys<T>  where T : struct
     {

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using UMDGeneral.ExtMethods;
-using UMDGeneral.Interfaces.DataInterfaces;
-using static UMDGeneral.Definitions.MsgTypes;
+using MobileDeliveryGeneral.ExtMethods;
+using MobileDeliveryGeneral.Interfaces.DataInterfaces;
+using static MobileDeliveryGeneral.Definitions.MsgTypes;
 
-namespace UMDGeneral.Data
+namespace MobileDeliveryGeneral.Data
 {
    // [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public class ManifestDetailsData : BaseData<ManifestDetailsData>

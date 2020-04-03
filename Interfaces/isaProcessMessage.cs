@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace UMDGeneral.Interfaces
+namespace MobileDeliveryGeneral.Interfaces
 {
     public delegate void ProcessMsgDelegateRXRaw(byte[] cmd, Func<byte[], Task> cbsend);
 

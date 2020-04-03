@@ -1,9 +1,9 @@
 ﻿using System;
-using UMDGeneral.Interfaces.DataInterfaces;
-using static UMDGeneral.Definitions.MsgTypes;
-using UMDGeneral.ExtMethods;
+using MobileDeliveryGeneral.Interfaces.DataInterfaces;
+using static MobileDeliveryGeneral.Definitions.MsgTypes;
+using MobileDeliveryGeneral.ExtMethods;
 
-namespace UMDGeneral.Data
+namespace MobileDeliveryGeneral.Data
 {
     public class ManifestMasterData : BaseData<ManifestMasterData>
     {

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
-using UMDGeneral.ExtMethods;
-using UMDGeneral.Interfaces.DataInterfaces;
-using static UMDGeneral.Definitions.MsgTypes;
+using MobileDeliveryGeneral.ExtMethods;
+using MobileDeliveryGeneral.Interfaces.DataInterfaces;
+using static MobileDeliveryGeneral.Definitions.MsgTypes;
 
-namespace UMDGeneral.Data
+namespace MobileDeliveryGeneral.Data
 {
     public class OrderDetailsData : IMDMMessage, IEquatable<OrderDetailsData>, INotifyPropertyChanged
     {

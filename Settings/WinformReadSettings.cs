@@ -3,7 +3,7 @@ using Plugin.Settings.Abstractions;
 using System;
 using System.Configuration;
 
-namespace UMDGeneral.Settings
+namespace MobileDeliveryGeneral.Settings
 {
     public static class WinformReadSettings
     {

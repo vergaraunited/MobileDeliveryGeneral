@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
 
-namespace UMDGeneral.BaseClasses
+namespace MobileDeliveryGeneral.BaseClasses
 {
     public class WinformObservableCollection<T> : ObservableCollection<T>, IList<T>, IEnumerable<T>
            // where T : class

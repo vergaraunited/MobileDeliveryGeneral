@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using UMDGeneral.Interfaces;
+using MobileDeliveryGeneral.Interfaces;
 
-namespace UMDGeneral.DataManager.Interfaces
+namespace MobileDeliveryGeneral.DataManager.Interfaces
 {
     public interface isaUMDData : isaReceiveMessageCallback, isaSendMessageCallback, isaProcessMessage
     {

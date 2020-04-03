@@ -1,9 +1,9 @@
 ﻿using System;
-using UMDGeneral.Definitions;
-using UMDGeneral.Interfaces.DataInterfaces;
-using static UMDGeneral.Definitions.MsgTypes;
+using MobileDeliveryGeneral.Definitions;
+using MobileDeliveryGeneral.Interfaces.DataInterfaces;
+using static MobileDeliveryGeneral.Definitions.MsgTypes;
 
-namespace UMDGeneral.Data
+namespace MobileDeliveryGeneral.Data
 {
     public class OrderData : IMDMMessage, IComparable<OrderData>, IEquatable<OrderData>
     {

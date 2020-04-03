@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using static UMDGeneral.Definitions.MsgTypes;
+using static MobileDeliveryGeneral.Definitions.MsgTypes;
 
-namespace UMDGeneral.Settings
+namespace MobileDeliveryGeneral.Settings
 {
     public class SocketSettings
     {

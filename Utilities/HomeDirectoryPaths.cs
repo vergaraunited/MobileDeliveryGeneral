@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace UMDGeneral.Utilities
+namespace MobileDeliveryGeneral.Utilities
 {
     public static class HomeDirectoryPaths
     {
