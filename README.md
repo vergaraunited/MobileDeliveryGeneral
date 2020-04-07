@@ -45,5 +45,4 @@ MobileDeliveryGeneral   |   1.4.3   |  Mobile Delivery General Code with Symbols
 
 **ToDo**<br/>
 **_:x: Built into the docker image based on the settings in the app.config_**<br/>
-**_:x: Built into the docker image based on the settings in the app.config_**<br/>
 **_:heavy_exclamation_mark: Consolidate into MobileDeliverySettings_**<br/>
