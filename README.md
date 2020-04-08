@@ -1,6 +1,6 @@
 # MobileDeliveryGeneral ![MobileDeliveryLogger Nuget Versions (UMDNuget Artifacts)][logo]
 
-## [v1.4.1](https://dev.azure.com/unitedwindowmfg/United%20Mobile%20Delivery/_packaging?_a=package&feed=UMDNuget&view=overview&package=MobileDeliveryGeneral&version=1.4.4&protocolType=NuGet)
+## [v1.4.4](https://dev.azure.com/unitedwindowmfg/United%20Mobile%20Delivery/_packaging?_a=package&feed=UMDNuget&view=overview&package=MobileDeliveryGeneral&version=1.4.4&protocolType=NuGet)
 
 [logo]: https://github.com/vergaraunited/Docs/blob/master/imgs/png/general_icon.png (https://dev.azure.com/unitedwindowmfg/United%20Mobile%20Delivery/_packaging?_a=package&feed=UMDNuget&package=MobileDeliveryGeneral&protocolType=NuGet&version=1.4.4&view=versions) 
 
