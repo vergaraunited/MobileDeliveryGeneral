@@ -30,5 +30,4 @@ MobileDeliveryLogger    |   1.4.1   |  Mobile Delivery Logger base code for all 
 
 
 **ToDo**<br/>
-**_:x: Built into the docker image based on the settings in the app.config_**<br/>
-**_:heavy_exclamation_mark: Consolidate into MobileDeliverySettings_**<br/>
+**_:x: Automate the build pipeline to update the versioning ReadMe files_**<br/>
