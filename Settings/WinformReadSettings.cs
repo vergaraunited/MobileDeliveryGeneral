@@ -13,8 +13,8 @@ namespace MobileDeliveryGeneral.Settings
             string loglevel = ConfigurationManager.AppSettings["LogLevel"];
             string port = ConfigurationManager.AppSettings["Port"];
             string url = ConfigurationManager.AppSettings["Url"];
-            string umdport = ConfigurationManager.AppSettings["UmdPort"];
-            string umdurl = ConfigurationManager.AppSettings["UmdUrl"];
+            string srvport = ConfigurationManager.AppSettings["UmdPort"];
+            string srvurl = ConfigurationManager.AppSettings["UmdUrl"];
             string winsysport = ConfigurationManager.AppSettings["WinsysPort"];
             string winsysurl = ConfigurationManager.AppSettings["WinsysUrl"];
             string sqlconn = ConfigurationManager.AppSettings["SQLConn"];
@@ -42,10 +42,10 @@ namespace MobileDeliveryGeneral.Settings
                     name = type.Assembly.GetName().Name,
                     port = uport,
                     url = url,
-                    umdport = uport,
-                    umdurl = url,
-                    WinSysPort = wport,
-                    WinSysUrl = winsysurl
+                    srvport = uport,
+                    srvurl = url,
+                    clientport = wport,
+                    clienturl = winsysurl
                 },
                 SQLConn = sqlconn,
                 winsysFiles = new WinsysFiles() { WinsysDstFile = WinsysDstFile, WinsysSrcFile = WinsysSrcFile },

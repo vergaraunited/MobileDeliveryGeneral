@@ -283,7 +283,8 @@ namespace MobileDeliveryGeneral.Definitions
                     }
                     id = reader.ReadInt64();
                     DATA = reader.ReadInt64();
-                    bData = reader.ReadBytes(reader.ReadInt32());
+                    int szData = reader.ReadInt32();
+                    bData = reader.ReadBytes(szData);
                     TRK_CDE = reader.ReadInt16();
                     Stop = reader.ReadInt32();
 

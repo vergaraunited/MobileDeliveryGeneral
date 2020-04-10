@@ -21,10 +21,10 @@ namespace MobileDeliveryGeneral.Settings
                 name = AppName,
                 port = 81,
                 url = "localhost",
-                umdport = 81,
-                umdurl = "localhost",
-                WinSysPort = 8181,
-                WinSysUrl = "localhost"
+                srvport = 81,
+                srvurl = "localhost",
+                clientport = 8181,
+                clienturl = "localhost"
             };            
         }
     }

@@ -24,10 +24,10 @@ namespace MobileDeliveryGeneral.Settings
                     name = "defaultName",
                     port = 81,
                     url = "localhost",
-                    umdport=81,
-                    umdurl="localhost",
-                    WinSysPort = 8181,
-                    WinSysUrl = "localhost"
+                    srvport=81,
+                    srvurl="localhost",
+                    clientport = 8181,
+                    clienturl = "localhost"
                 };
             }
             if (config.winsysFiles == null)
@@ -50,10 +50,10 @@ namespace MobileDeliveryGeneral.Settings
                     name = config.srvSet.name,
                     port = config.srvSet.port,
                     url = config.srvSet.url,
-                    umdurl= config.srvSet.umdurl,
-                    umdport=config.srvSet.umdport,
-                    WinSysPort = config.srvSet.WinSysPort,
-                    WinSysUrl = config.srvSet.WinSysUrl
+                    srvurl= config.srvSet.srvurl,
+                    srvport=config.srvSet.srvport,
+                    clientport = config.srvSet.clientport,
+                    clienturl = config.srvSet.clienturl
                 },
 
                 Version = config.Version,
