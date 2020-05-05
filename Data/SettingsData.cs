@@ -5,10 +5,9 @@ using static MobileDeliveryGeneral.Definitions.MsgTypes;
 
 namespace MobileDeliveryGeneral.Data
 {
-    public class SettingsData : IMDMMessage, IComparable<SettingsData>//, IEquatable<SettingsData>
+    public class SettingsData : BaseData<SettingsData>
     {
-        public eCommand Command { get; set; } = eCommand.Stops;
-        public Guid RequestId { get; set; }
+        public override eCommand Command { get; set; } = eCommand.LoadSettings;
         public long ManifestId { get; set; }
         public int DisplaySeq { get; set; }
         public long DealerNo { get; set; }
@@ -25,7 +24,7 @@ namespace MobileDeliveryGeneral.Data
 
         public SettingsData(ISettings stp)
         {
-            //this.RequestId = new Guid(stp.requestId);
+            //this.RequestId = NewGuid(stp.requestId);
             //this.ManifestId = stp.ManifestId;
             //this.DisplaySeq = stp.DisplaySeq;
             //this.DealerNo = stp.DealerNo;
@@ -38,7 +37,7 @@ namespace MobileDeliveryGeneral.Data
             //this.CustomerId = stp.CustomerId;
             //this.BillComplete = stp.BillComplete;
         }
-        public int CompareTo(SettingsData other)
+        public override int CompareTo(SettingsData other)
         {
             throw new NotImplementedException();
         }

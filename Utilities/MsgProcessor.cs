@@ -71,6 +71,11 @@ namespace MobileDeliveryGeneral.Utilities
                 case eCommand.DeliveryComplete:
                     //Broadcast cmdType = Broadcast.FromArray(cmdBytes);
                     break;
+                case eCommand.CheckManifest:
+                case eCommand.CheckManifestComplete:
+                    manifestMaster mamr = new manifestMaster();
+                    cmd = mamr.FromArray(cmdBytes);
+                    break;
                 case eCommand.GenerateManifest:
                     manifestRequest mr = new manifestRequest();
                     cmd = mr.FromArray(cmdBytes);
@@ -107,6 +112,7 @@ namespace MobileDeliveryGeneral.Utilities
                     cmd = md.FromArray(cmdBytes);
                     break;
                 case eCommand.Orders:
+
                     orderMaster om = new orderMaster();
                     cmd = om.FromArray(cmdBytes);
                     OrderMasterData omd = new OrderMasterData(om);
@@ -122,15 +128,16 @@ namespace MobileDeliveryGeneral.Utilities
                 case eCommand.TrucksLoadComplete:
                 case eCommand.StopsLoadComplete:
                 case eCommand.OrdersLoadComplete:
-                    manifestRequest mmt = new manifestRequest();
-                    cmd = mmt.FromArray(cmdBytes);
-
-                    if (cmd == null)
-                    {
-                        manifestMaster mnm = new manifestMaster();
-                        cmd = mnm.FromArray(cmdBytes);
-                    }
-                    
+                case eCommand.OrderUpdatesComplete:
+                case eCommand.OrderDetailsComplete:
+                case eCommand.OrderOptionsComplete:
+                case eCommand.ManifestDetailsComplete:
+                case eCommand.UploadManifestComplete:
+                case eCommand.LoadFilesComplete:
+                    Logger.Info($"CommandFactory: {Enum.GetName(typeof(eCommand), cmd.command) + Environment.NewLine}");
+                    manifestRequest req = new manifestRequest();
+                    Logger.Info($"CommandFactory: {req.ToString()}");
+                    cmd = req.FromArray(cmdBytes);
                     break;
                 case eCommand.Ping:
                     //Broadcast cmdType = Broadcast.FromArray(cmdBytes);

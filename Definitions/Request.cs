@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace MobileDeliveryGeneral.Definitions
 {
-    public enum status { Pending, Uploaded, Released, Init, Releasing, Completed}
+    public enum status { Init, Pending, Uploaded, Released, Releasing, Completed}
     public class Request
     {
         public Guid reqGuid { get; set; }
         public Dictionary<long, status> LIds { get; set; }
-        public Dictionary<long, status> MIds { get; set; }
+        public Dictionary<long, List<long>> LinkMid { get; set; }
+        public Dictionary<long, status> ChkIds { get; set; }
+
+
+
     }
 }

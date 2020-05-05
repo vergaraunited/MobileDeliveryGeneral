@@ -235,5 +235,4 @@ namespace MobileDeliveryGeneral.ExtMethods
         //    return new string(chars);
         //}
     }
-
 }

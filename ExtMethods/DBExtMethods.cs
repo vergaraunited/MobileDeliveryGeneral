@@ -24,7 +24,10 @@ namespace MobileDeliveryGeneral.ExtMethods
         //{
         //    return Encoding.ASCII.GetBytes(str.PadRight(length, ' '));
         //}
-
+        public static byte[] StringToByteArray(this string str)
+        {
+            return Encoding.ASCII.GetBytes(str);
+        }
         public static byte[] StringToByteArray(this string str, int length)
         {
             return Encoding.ASCII.GetBytes(str.PadRight(length, ' '));

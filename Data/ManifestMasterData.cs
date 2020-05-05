@@ -1,5 +1,4 @@
 ﻿using System;
-using MobileDeliveryGeneral.Interfaces.DataInterfaces;
 using static MobileDeliveryGeneral.Definitions.MsgTypes;
 using MobileDeliveryGeneral.ExtMethods;
 
@@ -11,27 +10,39 @@ namespace MobileDeliveryGeneral.Data
         {
             return this.RequestId==other.RequestId &&
                 this.LINK == other.LINK && 
-                this.TRK_CDE == other.TRK_CDE;
+                this.TRK_CDE == other.TRK_CDE && //SHIP_DTE == other.SHIP_DTE &&
+                SHP_QTY == other.SHP_QTY & NOTES == other.NOTES;
         }
 
         public override int CompareTo(ManifestMasterData mmd)
         {
             if (mmd.LINK == this.LINK && this.TRK_CDE == mmd.TRK_CDE && this.SHIP_DTE == mmd.SHIP_DTE
-                && this.NOTES == mmd.NOTES && this.Desc == mmd.Desc)
+                && this.NOTES == mmd.NOTES && this.Desc == mmd.Desc && this.SHP_QTY == mmd.SHP_QTY)
                 return 0;
             else
                 return 1;
         }
-
-        //public override string ToString()
-        //{
-        //    return "ManifestMasterData: " + LINK + ", TC:" + TRK_CDE + ", ID:" + ManifestId + 
-        //        ", NOTES:" + NOTES + ", Desc:" + Desc + ", SHPQTY:" + SHP_QTY;
-        //}
+        public override string ToString()
+        {
+            return $"Command:{Enum.GetName(typeof(eCommand), Command) + Environment.NewLine}" + 
+                $"\t\t{ManifestId + Environment.NewLine}" +
+                $"\t\t{Userid + Environment.NewLine}" +
+                $"\t\t{TRK_CDE + Environment.NewLine}" +
+                $"\t\t{SHIP_DTE + Environment.NewLine}" +
+                $"\t\t{Desc + Environment.NewLine}" +
+                $"\t\t{NOTES + Environment.NewLine}" +
+                $"\t\t{LINK + Environment.NewLine}" +
+                $"\t\t{TRUCKISCLOSED + Environment.NewLine}" +
+                $"\t\t{SEAL_DTE + Environment.NewLine}" +
+                $"\t\t{SHP_QTY + Environment.NewLine}" +
+                $"\t\t{COUNT + Environment.NewLine}" +
+                $"\t\t{RequestId + Environment.NewLine}";
+        }
         //  public ICollection<ManifestDetailsData> Details { get; set; }
 
         // Manifest Master Data
-       // public Guid RequestId { get; set; }
+        // public Guid RequestId { get; set; }
+        public override eCommand Command { get; set; } = eCommand.Manifest;
         public long ManifestId { get; set; }
         public string Userid { get; set; }
         public string TRK_CDE { get; set; }
@@ -47,6 +58,7 @@ namespace MobileDeliveryGeneral.Data
         //public eCommand Command { get; set; }
 
         public ManifestMasterData() : base() { }
+
         public ManifestMasterData(ManifestMasterData mmd)
         {
             RequestId = mmd.RequestId;
@@ -67,7 +79,7 @@ namespace MobileDeliveryGeneral.Data
         public ManifestMasterData(manifestMaster dat, long id, bool isSelected=false)
         {
             Command = dat.command;
-            RequestId = new Guid(dat.requestId);
+            RequestId = NewGuid(dat.requestId);
 
             if (dat.id != 0)
                 ManifestId = dat.id;
@@ -76,17 +88,17 @@ namespace MobileDeliveryGeneral.Data
 
             Userid = dat.DriverId.ToString();
             
-            TRK_CDE = dat.TRK_CDE.UMToString(fldsz_TRK_CDE);
+            TRK_CDE = dat.TRK_CDE.UMToString(fldsz_TRK_CDE_Master);
             //SHIP_DTE = DateTime.FromBinary(dat.SHIP_DTE).Date;
             SHIP_DTE = ExtensionMethods.FromJulianToGregorianDT(dat.SHIP_DTE,"yyyy-MM-dd").Date;
-            Desc = dat.DESC.UMToString(fldsz_DESC);
-            NOTES = dat.NOTES.UMToString(fldsz_NOTES * sizeof(char)); 
+            Desc = dat.DESC; //.UMToString(fldsz_DESC);
+            NOTES = dat.NOTES; //.UMToString(fldsz_NOTES * sizeof(char)); 
             LINK = dat.LINK;
             TRUCKISCLOSED = Convert.ToBoolean(dat.TRUCKISCLOSED);
             //SEAL_DTE = ;
             SHP_QTY = dat.SHP_QTY;
             IsSelected = isSelected;
-
+            status = Definitions.status.Uploaded;
             //if (dat.md != null)
             //{
             //    md = new ManifestDetailsData(dat.md, 2);

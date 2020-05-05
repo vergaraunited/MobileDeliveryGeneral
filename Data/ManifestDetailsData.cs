@@ -9,7 +9,7 @@ namespace MobileDeliveryGeneral.Data
    // [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public class ManifestDetailsData : BaseData<ManifestDetailsData>
     {
-
+        public override eCommand Command { get; set; } = eCommand.ManifestDetails;
         //public Guid RequestId { get; set; }
         public int LINK;
         public int ManId;
@@ -46,7 +46,8 @@ namespace MobileDeliveryGeneral.Data
         public ManifestDetailsData(manifestDetails dat)
         {
             Command = dat.command;
-            RequestId = new Guid(dat.requestId);
+            RequestId = NewGuid(dat.requestId);
+
             LINK = BitConverter.ToInt32(dat.LINK, 0);
             ManId = dat.ManId;
             DEL_SEQ = dat.DEL_SEQ;
@@ -55,16 +56,16 @@ namespace MobileDeliveryGeneral.Data
             //LOADUNITS = BitConverter.ToInt64(dat.LOADUNITS, 0);   //6 bytes
             UNITSONTRUCK = dat.UNITSONTRUCK;
             DLR_NO = dat.DLR_NO;
-            SHP_NME = dat.SHP_NME.UMToString(fldsz_SHP_NME);  //30 bytes
-            SHP_ADDR = dat.SHP_ADDR.UMToString(fldsz_SHP_NME); //30
-            SHP_ADDR2 = dat.SHP_ADDR2.UMToString(fldsz_SHP_NME);//30
-            SHP_CSZ = dat.SHP_CSZ.UMToString(fldsz_SHP_NME);   //30
-            SHP_TEL = dat.SHP_TEL.UMToString(fldsz_SHP_TEL);  //12
+            SHP_NME = dat.SHP_NME;  //30 bytes
+            SHP_ADDR = dat.SHP_ADDR; //30
+            SHP_ADDR2 = dat.SHP_ADDR2;//30
+            SHP_CSZ = dat.SHP_CSZ;   //30
+            SHP_TEL = dat.SHP_TEL;  //12
 
-            DIR_1 = dat.DIR_1.UMToString(fldsz_DIR);  //44  
-            DIR_2 = dat.DIR_2.UMToString(fldsz_DIR);
-            DIR_3 = dat.DIR_3.UMToString(fldsz_DIR);
-            DIR_4 = dat.DIR_4.UMToString(fldsz_DIR);
+            DIR_1 = dat.DIR_1;  //44  
+            DIR_2 = dat.DIR_2;
+            DIR_3 = dat.DIR_3;
+            DIR_4 = dat.DIR_4;
         }
 
         public ManifestDetailsData(ManifestDetailsData dat)

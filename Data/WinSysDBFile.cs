@@ -3,33 +3,30 @@ using System.IO;
 
 namespace MobileDeliveryGeneral.Data
 {
-    public class WinSysDBFile
+    public class WinsysDBFile
     {
-        List<string> WinSysFileNames = new List<string>();
-        public string WinSysSrcFilePath { get; set; }
+        public List<string> WinsysFileNames = new List<string>();
+        public string WinsysSrcFilePath { get; set; }
         public string WinsysDstFilePath { get; set; }
 
-        public WinSysDBFile(string srcPath, string dstPath)
+        public WinsysDBFile(string srcPath, string dstPath)
         {
-            WinSysSrcFilePath = srcPath;
+            WinsysSrcFilePath = srcPath;
             WinsysDstFilePath = dstPath;
         }
 
         public override string ToString()
         {
-            return WinSysSrcFilePath;
+            return WinsysSrcFilePath;
         }
         public string SrcFileName()
         {
-            return Path.GetFileName(WinSysSrcFilePath);
+            return Path.GetFileName(WinsysSrcFilePath);
         }
 
         public string SrcPath()
         {
-            return Path.GetFullPath(WinSysSrcFilePath);
+            return Path.GetFullPath(WinsysSrcFilePath);
         }
-
-
-
     }
 }

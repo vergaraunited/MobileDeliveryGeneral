@@ -8,5 +8,7 @@ namespace MobileDeliveryGeneral.Settings
     {
         public string WinsysSrcFile { get; set;}
         public string WinsysDstFile { get; set; }
+
+        public string[] TPSFileNamesToCopy;
     }
 }
