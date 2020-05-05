@@ -5,11 +5,11 @@ using static MobileDeliveryGeneral.Definitions.MsgTypes;
 
 namespace MobileDeliveryGeneral.Data
 {
-    public class TruckData : IMDMMessage, IComparable<TruckData>, IEquatable<TruckData>
+    public class TruckData : BaseData<TruckData>
     {
-        public eCommand Command { get; set; } = eCommand.Trucks;
+        public override eCommand Command { get; set; } = eCommand.Trucks;
 
-        public Guid RequestId { get; set; }
+        //public Guid RequestId { get; set; }
         public long Id { get; set; }
         public long ManifestId { get; set; }
         public int DriverId { get; set; }
@@ -24,6 +24,7 @@ namespace MobileDeliveryGeneral.Data
         public TruckData() { }
         public TruckData(TruckData td)
         {
+            Command = td.Command;
             RequestId = td.RequestId;
             ManifestId = td.ManifestId;
             DriverId = td.DriverId;
@@ -37,7 +38,8 @@ namespace MobileDeliveryGeneral.Data
         }
         public TruckData(trucks trk)
         {
-            RequestId = new Guid(trk.requestId);
+            Command = trk.command;
+            RequestId = NewGuid(trk.requestId);
             ManifestId = trk.ManifestId;
             DriverId = trk.DriverId;
             FirstName = trk.FirstName;
@@ -50,12 +52,12 @@ namespace MobileDeliveryGeneral.Data
             IsClosed = trk.IsClosed;
         }
 
-        public int CompareTo(TruckData other)
+        public override int CompareTo(TruckData other)
         {
             throw new NotImplementedException();
         }
 
-        public bool Equals(TruckData other)
+        public override bool Equals(TruckData other)
         {
             return ((this.ManifestId == other.ManifestId) &&
                 (this.SHIP_DTE.CompareTo(other.SHIP_DTE)==0) &&

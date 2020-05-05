@@ -44,9 +44,8 @@ namespace MobileDeliveryGeneral.Data
     //}
 
     // Order Master
-    public sealed class OrderMaster : IMDMMessage
+    public sealed class OrderMaster : BaseData<OrderMaster>
     {
-        public Guid RequestId { get; set; }
         public string ordernum { get; set; }
         public string customername { get; set; }
         public string accountnum { get; set; }
@@ -57,32 +56,31 @@ namespace MobileDeliveryGeneral.Data
         public string zip { get; set; }
         public string routecode { get; set; }
         public string phonenum { get; set; }
-        public Int16 billcomeplete { get; set; }
+        public Int16 billcomplete { get; set; }
         public string contact { get; set; }
-        public eCommand Command { get; set; }
+        public override eCommand Command { get; set; }
     }
 
   
     // Repair Images
-    public sealed class RepairImage : IMDMMessage
+    public sealed class RepairImage : BaseData<IMDMMessage>
     {
         public string ordernum { get; set; }
         public string linenum { get; set; }
         public string unitnum { get; set; }
         public string image { get; set; }
-        public eCommand Command { get; set; }
-        public Guid RequestId { get; set; }
+        
     }
 
     // User
-    public sealed class User : IMDMMessage
+    public sealed class User : BaseData<User>
     {
         public string userid { get; set; }
         public string username { get; set; }
         public string firstname { get; set; }
         public string lastname { get; set; }
-        public eCommand Command { get; set; }
-        public Guid RequestId { get; set; }
+        //public eCommand Command { get; set; }
+        //public Guid RequestId { get; set; }
     }
 
     public enum eStatus : byte
@@ -95,13 +93,10 @@ namespace MobileDeliveryGeneral.Data
     }
 
     // FileCopy
-    public sealed class FileCopy : IMDMMessage
+    public sealed class FileCopy : BaseData<FileCopy>
     {
         public List<string> files { get; set; }
-        public eStatus status {get; set;}
         public DateTime datetime { get; set; }
-        public eCommand Command { get; set; }
-        public Guid RequestId { get; set; }
     }
     // 
     /*   public sealed class MessageTypeConverter : JsonConverter

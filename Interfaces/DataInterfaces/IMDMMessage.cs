@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MobileDeliveryGeneral.Definitions;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using static MobileDeliveryGeneral.Definitions.MsgTypes;
@@ -9,5 +10,6 @@ namespace MobileDeliveryGeneral.Interfaces.DataInterfaces
     {
         eCommand Command { get; set; }
         Guid RequestId { get; set; }
+        status status { get; set; }
     }
 }

@@ -10,8 +10,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>7.3</LangVersion>
-    <RunPostBuildEvent>Always</RunPostBuildEvent>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <AssemblyVersion>1.5.3.0</AssemblyVersion>
     <FileVersion>1.5.3.0</FileVersion>
     <Version>1.5.3</Version>
@@ -28,7 +27,6 @@
     <PackageReference Include="EntityFramework" Version="6.4.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.IO.RecyclableMemoryStream" Version="1.3.0" />
-    <PackageReference Include="MobileDeliveryLogger" Version="1.5.3" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
     <PackageReference Include="Xam.Plugins.Settings" Version="3.1.1" />
   </ItemGroup>
@@ -37,9 +35,10 @@
   <ItemGroup>
     <Folder Include="Threading\" />
   </ItemGroup>
+ 
 
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="nuget restore $(ProjectPath)" />
-  </Target>
+  <ItemGroup>
+    <ProjectReference Include="..\MobileDeliveryLogger\MobileDeliveryLogger.csproj" />
+  </ItemGroup>
 
 </Project>

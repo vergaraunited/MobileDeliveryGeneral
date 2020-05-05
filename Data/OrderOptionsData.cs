@@ -1,43 +1,37 @@
-﻿using System;
-using MobileDeliveryGeneral.ExtMethods;
-using MobileDeliveryGeneral.Interfaces.DataInterfaces;
-using static MobileDeliveryGeneral.Definitions.MsgTypes;
+﻿using static MobileDeliveryGeneral.Definitions.MsgTypes;
 
 namespace MobileDeliveryGeneral.Data
 {
-    public class OrderOptionsData : IMDMMessage, IEquatable<OrderOptionsData>
+    public class OrderOptionsData : BaseData<OrderOptionsData>
     {
+        public override eCommand Command { get; set; } = eCommand.OrderOptions;
         public long ORD_NO;
         public short MDL_CNT;
         public byte PAT_POS;
-        public long MODEL;                   //4
-        public long MDL_NO;                   //4
-        public short OPT_TYPE;                 //2
+        public string MDL_NO;                   
+        public string OPT_TYPE;                 //2
         public short OPT_NUM;
         public string CLR;                      //3
         public string DESC;                     //60
-
-        public eCommand Command { get; set; }
-        public Guid RequestId { get; set; }
-
+        public int Count;
         public OrderOptionsData()
         { }
 
         public OrderOptionsData(orderOptions dat)
         {
             Command = dat.command;
-            ORD_NO = BitConverter.ToInt32(dat.ORD_NO, 0);
-            MDL_CNT = BitConverter.ToInt16(dat.MDL_CNT, 0);
+            RequestId = NewGuid(dat.requestId);
+            ORD_NO = dat.ORD_NO;
+            MDL_CNT = dat.MDL_CNT;
             PAT_POS = dat.PAT_POS;
-            MODEL = BitConverter.ToInt32(dat.MODEL, 0);
 
-            MDL_NO = BitConverter.ToInt32(dat.MDL_NO,0);
+            MDL_NO = dat.MDL_NO;
 
-            OPT_TYPE = BitConverter.ToInt16(dat.OPT_TYPE, 0);
-            OPT_NUM = BitConverter.ToInt16(dat.OPT_NUM,0);
+            OPT_TYPE = dat.OPT_TYPE;
+            OPT_NUM = dat.OPT_NUM;
             
-            CLR = dat.CLR.UMToString(fldsz_DESCOrd);
-            DESC = dat.DESC.UMToString(fldsz_DESCOrd);
+            CLR = dat.CLR;
+            DESC = dat.DESC;
            
         }
 

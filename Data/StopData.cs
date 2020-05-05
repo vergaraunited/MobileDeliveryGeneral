@@ -1,13 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using MobileDeliveryGeneral.Interfaces.DataInterfaces;
 using static MobileDeliveryGeneral.Definitions.MsgTypes;
 
 namespace MobileDeliveryGeneral.Data
 {
-    public class StopData : IMDMMessage, IComparable<StopData>, IEquatable<StopData>
+    public class StopData : BaseData<StopData>
     {
-        public eCommand Command { get; set; } = eCommand.Stops;
-        public Guid RequestId { get; set; }
+        public override eCommand Command { get; set; } = eCommand.Stops;
         public long ManifestId { get; set; }
         public int DisplaySeq { get; set; }
         public long DealerNo { get; set; }
@@ -19,12 +19,14 @@ namespace MobileDeliveryGeneral.Data
         public string TruckCode { get; set; }
         public int CustomerId { get; set; }
         public bool BillComplete { get; set; }
+        public List<OrderMasterData> Orders { get; set; }
 
         public StopData() { }
 
         public StopData(stops stp)
         {
-            this.RequestId = new Guid(stp.requestId);
+            Command = stp.command;
+            this.RequestId = NewGuid(stp.requestId);
             this.ManifestId = stp.ManifestId;
             this.DisplaySeq = stp.DisplaySeq;
             this.DealerNo = stp.DealerNo;
@@ -39,6 +41,7 @@ namespace MobileDeliveryGeneral.Data
         }
         public StopData(StopData stp)
         {
+            Command = stp.Command;
             this.RequestId = stp.RequestId;
             this.ManifestId = stp.ManifestId;
             this.DisplaySeq = stp.DisplaySeq;
@@ -54,12 +57,12 @@ namespace MobileDeliveryGeneral.Data
         }
 
 
-        public int CompareTo(StopData other)
+        public override int CompareTo(StopData other)
         {
             throw new NotImplementedException();
         }
 
-        public bool Equals(StopData sd)
+        public override bool Equals(StopData sd)
         {
             return this.Address == sd.Address && 
                 this.CustomerId == sd.CustomerId &&

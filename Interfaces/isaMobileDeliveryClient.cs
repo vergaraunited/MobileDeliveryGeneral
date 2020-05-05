@@ -9,7 +9,7 @@ namespace MobileDeliveryGeneral.Interfaces
     {
         bool Connect();
 
-       void Init(SocketSettings settings, ref SendMsgDelegate sm, ReceiveMsgDelegate rcvMsg = null);
+       void Init(string url, ushort port, string name, ref SendMsgDelegate sm, ReceiveMsgDelegate rcvMsg = null);
         string Url { get; set; }
         ushort Port { get; set; }
     }

@@ -1,11 +1,12 @@
-﻿using System;
-using MobileDeliveryGeneral.ExtMethods;
-using MobileDeliveryGeneral.Interfaces.DataInterfaces;
+﻿using MobileDeliveryGeneral.ExtMethods;
+using System;
+using System.Collections.Generic;
+using System.Text;
 using static MobileDeliveryGeneral.Definitions.MsgTypes;
 
 namespace MobileDeliveryGeneral.Data
 {
-    public class OrderMasterData : BaseData<OrderMasterData>
+    public class AccountsReceivableData : BaseData<AccountsReceivableData>
     {
         public override eCommand Command { get; set; } = eCommand.Orders;
         public long ORD_NO;
@@ -47,14 +48,14 @@ namespace MobileDeliveryGeneral.Data
         public DateTime SCAN_DATE_TIME { get; set; }
 
 
-        public OrderMasterData()
+        public AccountsReceivableData()
         { }
-        public OrderMasterData(OrderMasterData omd)
+        public AccountsReceivableData(AccountsReceivableData omd)
         {
-            this.Command= omd.Command;
-            this.ORD_NO= omd.ORD_NO;
-            this.DLR_NO= omd.DLR_NO;
-            this.SHP_DTE= omd.SHP_DTE;
+            this.Command = omd.Command;
+            this.ORD_NO = omd.ORD_NO;
+            this.DLR_NO = omd.DLR_NO;
+            this.SHP_DTE = omd.SHP_DTE;
 
             this.DSP_SEQ = omd.DSP_SEQ;
             this.CustomerId = omd.CustomerId;
@@ -68,35 +69,35 @@ namespace MobileDeliveryGeneral.Data
 
             this.DLR_NME = omd.DLR_NME;
             this.DLR_ADDR = omd.DLR_ADDR;
-            this.DLR_ADDR2=omd.DLR_ADDR2;
-            this.DLR_TEL=omd.DLR_TEL;
-            this.DLR_CT=omd.DLR_CT;
-            this.SHP_NME=omd.SHP_NME;
-            this.SHP_ADDR=omd.SHP_ADDR;
-            this.SHP_ADDR2=omd.SHP_ADDR2;
-            this.SHP_TEL=omd.SHP_TEL;
-            this.SHP_ZIP=omd.SHP_ZIP;
-            this.CUS_NME=omd.CUS_NME;
-            this.RTE_CDE=omd.RTE_CDE;
-            this.SHP_QTY=omd.SHP_QTY;
-            this.ManId=omd.ManId;
-            this.IsSelected=omd.IsSelected;
-            this.ManifestId=omd.ManifestId;
+            this.DLR_ADDR2 = omd.DLR_ADDR2;
+            this.DLR_TEL = omd.DLR_TEL;
+            this.DLR_CT = omd.DLR_CT;
+            this.SHP_NME = omd.SHP_NME;
+            this.SHP_ADDR = omd.SHP_ADDR;
+            this.SHP_ADDR2 = omd.SHP_ADDR2;
+            this.SHP_TEL = omd.SHP_TEL;
+            this.SHP_ZIP = omd.SHP_ZIP;
+            this.CUS_NME = omd.CUS_NME;
+            this.RTE_CDE = omd.RTE_CDE;
+            this.SHP_QTY = omd.SHP_QTY;
+            this.ManId = omd.ManId;
+            this.IsSelected = omd.IsSelected;
+            this.ManifestId = omd.ManifestId;
 
             this.WIDTH = omd.WIDTH;
             this.HEIGHT = omd.HEIGHT;
-            this.PAT_POS= omd.PAT_POS;
-            this.OPT_TYPE= omd.OPT_TYPE;
-            this.OPT_NUM= omd.OPT_NUM;
-            this.SCAN_DATE_TIME= omd.SCAN_DATE_TIME;
-    }
-        public OrderMasterData(orders sd)
+            this.PAT_POS = omd.PAT_POS;
+            this.OPT_TYPE = omd.OPT_TYPE;
+            this.OPT_NUM = omd.OPT_NUM;
+            this.SCAN_DATE_TIME = omd.SCAN_DATE_TIME;
+        }
+        public AccountsReceivableData(orderDetails ar)
         {
-            Command = sd.command;
-            RequestId = NewGuid(sd.requestId);
-            ORD_NO = sd.ORD_NO;
-            DLR_NO = sd.DLR_NO;
-            ManifestId = sd.ManifestId;
+            Command = ar.command;
+            RequestId = NewGuid(ar.requestId);
+            //ORD_NO = sd.ORD_NO;
+            //DLR_NO = sd.DLR_NO;
+            //ManifestId = sd.ManifestId;
             //SHP_DTE = DateTime.Parse(ExtensionMethods.FromJulianToGregorian((long)(sd.SHP_DTE), "MM/dd/yyyy"));
 
             //DLR_NME = sd.DLR_NME;
@@ -117,40 +118,40 @@ namespace MobileDeliveryGeneral.Data
             //SHP_QTY = sd.SHP_QTY;
             IsSelected = false;
         }
-        public OrderMasterData(orderMaster dat, bool isSelected=false)
+        public AccountsReceivableData(orderDetails dat, bool isSelected = false)
         {
             Command = dat.command;
             RequestId = NewGuid(dat.requestId);
             ORD_NO = dat.ORD_NO;
-            DLR_NO = dat.DLR_NO;
-            SHP_DTE = DateTime.Parse(ExtensionMethods.FromJulianToGregorian((long)(dat.SHIP_DTE),"MM/dd/yyyy"));
+            //DLR_NO = dat.DLR_NO;
+            //SHP_DTE = DateTime.Parse(ExtensionMethods.FromJulianToGregorian((long)(dat.SHIP_DTE), "MM/dd/yyyy"));
 
-            DLR_NME = dat.DLR_NME;
-            DLR_ADDR = dat.DLR_ADDR;
-            DLR_ADDR2 = dat.DLR_ADDR2;
-            DLR_TEL = dat.DLR_TEL;
-            DLR_CT = dat.DLR_CT;
+            //DLR_NME = dat.DLR_NME;
+            //DLR_ADDR = dat.DLR_ADDR;
+            //DLR_ADDR2 = dat.DLR_ADDR2;
+            //DLR_TEL = dat.DLR_TEL;
+            //DLR_CT = dat.DLR_CT;
 
-            SHP_NME = dat.SHP_NME;
-            SHP_ADDR = dat.SHP_ADDR;
-            SHP_ADDR2 = dat.SHP_ADDR2;
+            //SHP_NME = dat.SHP_NME;
+            //SHP_ADDR = dat.SHP_ADDR;
+            //SHP_ADDR2 = dat.SHP_ADDR2;
 
-            SHP_TEL = dat.SHP_TEL;
-            SHP_ZIP = dat.SHP_ZIP;
+            //SHP_TEL = dat.SHP_TEL;
+            //SHP_ZIP = dat.SHP_ZIP;
 
-            CUS_NME = dat.CUS_NME;
-            RTE_CDE = dat.RTE_CDE;
-            SHP_QTY = dat.SHP_QTY;
-            Status = dat.Status;
+            //CUS_NME = dat.CUS_NME;
+            //RTE_CDE = dat.RTE_CDE;
+            //SHP_QTY = dat.SHP_QTY;
+            //Status = dat.Status;
             IsSelected = isSelected;
-            ManId = dat.ManId;
+            //ManId = dat.ManId;
         }
 
-        public bool Equals(OrderMasterData other)
+        public bool Equals(AccountsReceivableData other)
         {
-            return this.Command == other.Command && 
-                this.ORD_NO == other.ORD_NO && 
-                this.SHP_DTE == other.SHP_DTE && 
+            return this.Command == other.Command &&
+                this.ORD_NO == other.ORD_NO &&
+                this.SHP_DTE == other.SHP_DTE &&
                 this.DLR_NO == other.DLR_NO;
         }
     }

@@ -4,14 +4,12 @@ using static MobileDeliveryGeneral.Definitions.MsgTypes;
 
 namespace MobileDeliveryGeneral.Data
 {
-    public class DriverData : IMDMMessage, IEquatable<DriverData>
+    public class DriverData : BaseData<DriverData>
     {
+        public override eCommand Command { get; set; } = eCommand.Drivers;
         public int DriverId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public eCommand Command { get; set; }
-        public Guid RequestId { get; set; }
-
         public override String ToString() {
             return  "(" + DriverId + ") " + LastName + ", " + FirstName;
         }

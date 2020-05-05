@@ -13,20 +13,33 @@ namespace MobileDeliveryGeneral.Settings
             string loglevel = ConfigurationManager.AppSettings["LogLevel"];
             string port = ConfigurationManager.AppSettings["Port"];
             string url = ConfigurationManager.AppSettings["Url"];
-            string srvport = ConfigurationManager.AppSettings["UmdPort"];
-            string srvurl = ConfigurationManager.AppSettings["UmdUrl"];
-            string winsysport = ConfigurationManager.AppSettings["WinsysPort"];
-            string winsysurl = ConfigurationManager.AppSettings["WinsysUrl"];
+            string srvport = ConfigurationManager.AppSettings["SrvPort"];
+            string srvurl = ConfigurationManager.AppSettings["SrvUrl"];
+            string clientport = ConfigurationManager.AppSettings["ClientPort"];
+            string clienturl = ConfigurationManager.AppSettings["ClientUrl"];
             string sqlconn = ConfigurationManager.AppSettings["SQLConn"];
 
             string WinsysSrcFile = ConfigurationManager.AppSettings["WinsysSrcFilePath"];
             string WinsysDstFile = ConfigurationManager.AppSettings["WinsysDstFilePath"];
+            string TPSFileNamesToCopy = ConfigurationManager.AppSettings["WinsysTPSFiles "];
 
-            ushort wport;
-            ushort.TryParse(winsysport, out wport);
+            if (WinsysSrcFile == null || WinsysSrcFile.Length == 0)
+                WinsysSrcFile = @"\\Fs01\vol1\Winsys32\DATA";
+            
+            if (WinsysDstFile == null || WinsysDstFile.Length == 0)
+                WinsysDstFile = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+            if (TPSFileNamesToCopy == null || TPSFileNamesToCopy.Length == 0)
+                TPSFileNamesToCopy = @"";
 
             ushort uport;
             ushort.TryParse(port, out uport);
+
+            ushort usrvport;
+            ushort.TryParse(srvport, out usrvport);
+
+            ushort uclientport;
+            ushort.TryParse(clientport, out uclientport);
 
             LogLevel eloglevel;
 
@@ -42,10 +55,10 @@ namespace MobileDeliveryGeneral.Settings
                     name = type.Assembly.GetName().Name,
                     port = uport,
                     url = url,
-                    srvport = uport,
-                    srvurl = url,
-                    clientport = wport,
-                    clienturl = winsysurl
+                    srvport = usrvport,
+                    srvurl = srvurl,
+                    clientport = uclientport,
+                    clienturl = clienturl
                 },
                 SQLConn = sqlconn,
                 winsysFiles = new WinsysFiles() { WinsysDstFile = WinsysDstFile, WinsysSrcFile = WinsysSrcFile },
