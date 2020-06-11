@@ -20,6 +20,9 @@ namespace MobileDeliveryGeneral.Data
         public int CustomerId { get; set; }
         public bool BillComplete { get; set; }
         public List<OrderMasterData> Orders { get; set; }
+        public byte[] POD;
+        public OrderStatus Status { get; set; }
+        public DateTime ScanDateTime { get; set; }
 
         public StopData() { }
 
@@ -38,6 +41,7 @@ namespace MobileDeliveryGeneral.Data
             this.TruckCode = stp.TRK_CDE;
             this.CustomerId = stp.CustomerId;
             this.BillComplete = stp.BillComplete;
+            this.ScanDateTime = stp.ScanDateTime;
         }
         public StopData(StopData stp)
         {
@@ -54,8 +58,23 @@ namespace MobileDeliveryGeneral.Data
             this.TruckCode = stp.TruckCode;
             this.CustomerId = stp.CustomerId;
             this.BillComplete = stp.BillComplete;
+            this.POD = stp.POD;
+            this.Status = stp.Status;
+            this.ScanDateTime = stp.ScanDateTime;
         }
 
+        public override string ToString()
+        {
+            return $"Command:{Enum.GetName(typeof(eCommand), Command) + Environment.NewLine}" +
+                $"\t\t{RequestId + Environment.NewLine}" +
+                $"\t\t{Address + Environment.NewLine}" +
+                $"\t\t{CustomerId + Environment.NewLine}" +
+                $"\t\t{DealerName + Environment.NewLine}" +
+                $"\t\t{DealerNo + Environment.NewLine}" +
+                $"\t\t{DisplaySeq + Environment.NewLine}" +
+                $"\t\t{ManifestId + Environment.NewLine}" +
+                $"\t\t{ScanDateTime + Environment.NewLine}";
+        }
 
         public override int CompareTo(StopData other)
         {
@@ -69,7 +88,8 @@ namespace MobileDeliveryGeneral.Data
                this.DealerName == sd.DealerName &&
                this.DealerNo == sd.DealerNo &&
                this.DisplaySeq == sd.DisplaySeq &&
-               this.ManifestId == sd.ManifestId;
+               this.ManifestId == sd.ManifestId &&
+               this.ScanDateTime==sd.ScanDateTime;
         }
     }
 }

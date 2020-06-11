@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace MobileDeliveryGeneral.Definitions
 {
-    public enum status { Init, Pending, Uploaded, Released, Releasing, Completed}
+    public enum status { Init, Pending, Uploaded, Released, Releasing, Completed, SystemChange}
     public class Request
     {
         public Guid reqGuid { get; set; }

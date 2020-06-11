@@ -28,6 +28,8 @@ namespace MobileDeliveryGeneral.Settings
                     srvurl="localhost",
                     clientport = 8181,
                     clienturl = "localhost"
+                    //keepalive =
+                    //rety =   
                 };
             }
             if (config.winsysFiles == null)

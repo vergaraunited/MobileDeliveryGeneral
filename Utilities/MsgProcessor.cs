@@ -88,8 +88,10 @@ namespace MobileDeliveryGeneral.Utilities
                     //UMDManifest.
                     break;
                 case eCommand.OrdersLoad:
-                    orders ords = new orders();
-                    cmd = ords.FromArray(cmdBytes);
+                    //orders ords = new orders();
+                    //cmd = ords.FromArray(cmdBytes);
+                    orderMaster orm = new orderMaster();
+                    cmd = orm.FromArray(cmdBytes);
                     break;
                 case eCommand.Trucks:
                     trucks trks = new trucks();
@@ -111,18 +113,27 @@ namespace MobileDeliveryGeneral.Utilities
                     manifestDetails md = new manifestDetails();
                     cmd = md.FromArray(cmdBytes);
                     break;
-                case eCommand.Orders:
-
+                case eCommand.OrdersUpload:
                     orderMaster om = new orderMaster();
                     cmd = om.FromArray(cmdBytes);
                     OrderMasterData omd = new OrderMasterData(om);
                     if (!dStopOrders.ContainsKey(omd.DLR_NO))
                         dStopOrders.Add(omd.DLR_NO, new List<long>() { omd.ORD_NO });
                     break;
+                case eCommand.ScanFile:
+                    scanFile sc = new scanFile();
+                    cmd = sc.FromArray(cmdBytes);
+                    ScanFileData scd = new ScanFileData(sc);
+                    break;
                 case eCommand.OrderOptions:
                     orderOptions oo = new orderOptions();
                     cmd = oo.FromArray(cmdBytes);
                     //OrderOptionsData ood = new OrderOptionsData(oo);
+                    break;
+                case eCommand.AccountReceivable:
+                    accountReceivable ar = new accountReceivable();
+                    cmd = ar.FromArray(cmdBytes);
+                    // AccountsReceivableData acr = new AccountsReceivableData((accountReceivable)cmd);
                     break;
                 case eCommand.ManifestLoadComplete:
                 case eCommand.TrucksLoadComplete:

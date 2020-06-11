@@ -12,6 +12,13 @@ namespace MobileDeliveryGeneral.Settings
         public ushort clientport { get; set; }
         public string name { get; set; }
 
+        public ushort keepalive { get; set; }
+        public ushort retry { get; set; }
+        public ushort recontimeout { get; set; }
+        public ushort errrecontimeout { get; set; }
+        
+
+
         public delegate isaCommand ReceiveMsgDelegate(isaCommand cmd);
     } 
 }

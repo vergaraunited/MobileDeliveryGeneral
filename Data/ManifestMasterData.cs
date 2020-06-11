@@ -54,7 +54,7 @@ namespace MobileDeliveryGeneral.Data
         public DateTime SEAL_DTE { get; set; }
         public short SHP_QTY { get; set; }
         public int COUNT { get; set; }
-
+        public TruckManifestStatus Status { get; set; }
         //public eCommand Command { get; set; }
 
         public ManifestMasterData() : base() { }
@@ -75,6 +75,7 @@ namespace MobileDeliveryGeneral.Data
             SHP_QTY = mmd.SHP_QTY;
             COUNT = mmd.COUNT;
             Command = mmd.Command;
+            Status = mmd.Status;
         }
         public ManifestMasterData(manifestMaster dat, long id, bool isSelected=false)
         {
@@ -99,6 +100,7 @@ namespace MobileDeliveryGeneral.Data
             SHP_QTY = dat.SHP_QTY;
             IsSelected = isSelected;
             status = Definitions.status.Uploaded;
+            Status = TruckManifestStatus.New;
             //if (dat.md != null)
             //{
             //    md = new ManifestDetailsData(dat.md, 2);

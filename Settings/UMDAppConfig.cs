@@ -24,7 +24,9 @@ namespace MobileDeliveryGeneral.Settings
                 srvport = 81,
                 srvurl = "localhost",
                 clientport = 8181,
-                clienturl = "localhost"
+                clienturl = "localhost",
+                keepalive = 600,
+                retry = 6000
             };            
         }
     }
