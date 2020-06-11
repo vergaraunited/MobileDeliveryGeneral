@@ -16,7 +16,7 @@ namespace MobileDeliveryGeneral.Data
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string TRK_CDE { get; set; }
-        public DateTime SHIP_DTE { get; set; }
+        public long SHIP_DTE { get; set; }
         public string Desc { get; set; }
         public string NOTES { get; set; }
         public bool IsClosed { get; set; }
@@ -45,13 +45,24 @@ namespace MobileDeliveryGeneral.Data
             FirstName = trk.FirstName;
             LastName = trk.LastName;
             TRK_CDE = trk.TruckCode;
-            SHIP_DTE = ExtensionMethods.FromJulianToGregorianDT(trk.ShipDate, "yyyy-MM-dd").Date;
+            SHIP_DTE = trk.ShipDate;
             NOTES = trk.Notes;
             Desc = trk.Description;
-            NOTES = trk.Notes;
             IsClosed = trk.IsClosed;
         }
-
+        public override string ToString()
+        {
+            return $"Command:{Enum.GetName(typeof(eCommand), Command) + Environment.NewLine}" +
+                $"\t\t{RequestId + Environment.NewLine}" +
+                $"\t\t{ManifestId + Environment.NewLine}" +
+                $"\t\t{DriverId + Environment.NewLine}" +
+                $"\t\t{FirstName + Environment.NewLine}" +
+                $"\t\t{LastName + Environment.NewLine}" +
+                $"\t\t{TRK_CDE + Environment.NewLine}" +
+                $"\t\t{SHIP_DTE + Environment.NewLine}" +
+                $"\t\t{NOTES + Environment.NewLine}" +
+                $"\t\t{Desc + Environment.NewLine}";
+        }
         public override int CompareTo(TruckData other)
         {
             throw new NotImplementedException();

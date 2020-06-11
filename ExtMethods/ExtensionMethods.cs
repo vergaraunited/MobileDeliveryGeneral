@@ -11,6 +11,12 @@ namespace MobileDeliveryGeneral.ExtMethods
     public static class ExtensionMethods
     {
         static RecyclableMemoryStreamManager manager = new RecyclableMemoryStreamManager();
+
+        public static string ToStringExNull( this object ostr)
+        {
+            return ostr == null ? "" : ostr.ToString();
+        }
+
         public static List<Int64> BytesToList(byte[] bytes)
         {
             var list = new List<Int64>();

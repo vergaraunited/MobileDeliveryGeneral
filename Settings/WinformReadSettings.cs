@@ -19,6 +19,11 @@ namespace MobileDeliveryGeneral.Settings
             string clienturl = ConfigurationManager.AppSettings["ClientUrl"];
             string sqlconn = ConfigurationManager.AppSettings["SQLConn"];
 
+            string keepAlive = ConfigurationManager.AppSettings["KeepAliveInterval"];
+            string retry = ConfigurationManager.AppSettings["RetryInterval"];
+            string recontimeout = ConfigurationManager.AppSettings["ReconTimeOut"];
+            string errrecontimeout = ConfigurationManager.AppSettings["ErrReconTimeOut"];
+            
             string WinsysSrcFile = ConfigurationManager.AppSettings["WinsysSrcFilePath"];
             string WinsysDstFile = ConfigurationManager.AppSettings["WinsysDstFilePath"];
             string TPSFileNamesToCopy = ConfigurationManager.AppSettings["WinsysTPSFiles "];
@@ -41,6 +46,24 @@ namespace MobileDeliveryGeneral.Settings
             ushort uclientport;
             ushort.TryParse(clientport, out uclientport);
 
+
+            ushort ukeepalive;
+            ushort.TryParse(keepAlive, out ukeepalive);
+            ushort uretry;
+            ushort.TryParse(retry, out uretry);
+            ushort urecontimeout;
+            ushort.TryParse(recontimeout, out urecontimeout);
+            ushort uerrrecontimeout;
+            ushort.TryParse(errrecontimeout, out uerrrecontimeout);
+            if (ukeepalive == 0)
+                ukeepalive = 60000;
+            if (uretry == 0)
+                uretry = 60000;
+            if (urecontimeout == 0)
+                urecontimeout = 60000;
+            if (uerrrecontimeout == 0)
+                uerrrecontimeout = 60000;
+
             LogLevel eloglevel;
 
             if (!Enum.TryParse<LogLevel>(loglevel, out eloglevel))
@@ -58,7 +81,11 @@ namespace MobileDeliveryGeneral.Settings
                     srvport = usrvport,
                     srvurl = srvurl,
                     clientport = uclientport,
-                    clienturl = clienturl
+                    clienturl = clienturl,
+                    keepalive = ukeepalive,
+                    retry = uretry,
+                    recontimeout = urecontimeout,
+                    errrecontimeout = uerrrecontimeout
                 },
                 SQLConn = sqlconn,
                 winsysFiles = new WinsysFiles() { WinsysDstFile = WinsysDstFile, WinsysSrcFile = WinsysSrcFile },

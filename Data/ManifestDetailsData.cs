@@ -12,7 +12,8 @@ namespace MobileDeliveryGeneral.Data
         public override eCommand Command { get; set; } = eCommand.ManifestDetails;
         //public Guid RequestId { get; set; }
         public int LINK;
-        public int ManId;
+        public int CustomerId;
+        public long ManId;
         public short DEL_SEQ;
         public short DSP_SEQ;
         public short EXTRA_STOP;
@@ -84,7 +85,7 @@ namespace MobileDeliveryGeneral.Data
             SHP_ADDR=dat.SHP_ADDR; //30
             SHP_ADDR2=dat.SHP_ADDR2;//30
             SHP_CSZ=dat.SHP_CSZ;  //30
-            SHP_TEL=dat.SHP_TEL;  //12
+            SHP_TEL =dat.SHP_TEL;  //12
 
             DIR_1=dat.DIR_1;  //44  
             DIR_2=dat.DIR_2;
