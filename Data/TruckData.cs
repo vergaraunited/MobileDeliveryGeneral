@@ -1,16 +1,17 @@
 ﻿using System;
-using MobileDeliveryGeneral.ExtMethods;
-using MobileDeliveryGeneral.Interfaces.DataInterfaces;
+using MobileDeliveryGeneral.DataManager.Interfaces;
+using SQLite;
 using static MobileDeliveryGeneral.Definitions.MsgTypes;
 
 namespace MobileDeliveryGeneral.Data
 {
-    public class TruckData : BaseData<TruckData>
+    public class TruckData : BaseData<TruckData>, isaCacheItem<TruckData>
     {
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
         public override eCommand Command { get; set; } = eCommand.Trucks;
 
         //public Guid RequestId { get; set; }
-        public long Id { get; set; }
         public long ManifestId { get; set; }
         public int DriverId { get; set; }
         public string FirstName { get; set; }

@@ -74,7 +74,7 @@ namespace MobileDeliveryGeneral.Threading
             if (!dDoneEvent.ContainsKey(g))
             {
                 string name = Enum.GetName(typeof(eCommand), req.command);
-                if (name.CompareTo("OrdersLoad") == 0)
+                if (name.CompareTo("OrdersLoad") == 0 || name.CompareTo("OrdersUpload") == 0)
                     to = 60000;
                 dDoneEvent.Add(g, new evData() { evnt=new ManualResetEvent(false), secReset=to, name=name});
             }
@@ -95,6 +95,7 @@ namespace MobileDeliveryGeneral.Threading
                     case eCommand.Manifest:
                     case eCommand.GenerateManifest:
                     case eCommand.LoadFiles:
+                    case eCommand.ScanFile:
                         if (!sm(req))
                             throw new Exception("UMBackgroundWorker::connectionVM.SendMsgWinsys - Failed to send Winsys Server a message");
                         break;
@@ -111,6 +112,7 @@ namespace MobileDeliveryGeneral.Threading
                     case eCommand.CompleteStop:
                     case eCommand.CompleteOrder:
                     case eCommand.AccountReceivable:
+                    case eCommand.ScanFileComplete:
                         sm(req);
                         break;
                     case eCommand.TrucksLoadComplete:
@@ -233,15 +235,6 @@ namespace MobileDeliveryGeneral.Threading
                     //Sendback((O)mcmd, cbsend);
                     //CompleteBackgroundWorker(new Guid(cmd.requestId));
                     break;
-                //case eCommand.OrdersLoad:
-                //    mcmd = new OrderMasterData() {
-                //        Command = cmd.command,
-                //        ORD_NO=((orderMaster)cmd).ORD_NO,
-                //        Status = ((orderMaster)cmd).Status
-                //    };
-                //    Sendback((O)mcmd, cbsend);
-                //    break;
-
                 case eCommand.OrdersUpload:
                     mcmd = new OrderMasterData()
                     {
@@ -315,9 +308,29 @@ namespace MobileDeliveryGeneral.Threading
                     }
                     break;
                 case eCommand.ScanFile:
-                    mcmd = new ScanFileData((scanFile)cmd);
-                    Sendback((O)mcmd, cbsend);
+                    ScanFileData scmd = new ScanFileData((scanFile)cmd);
+                    //Sendback((O)cmd, cbsend);
                     break;
+
+                case eCommand.ScanFileComplete:
+                    mreq = (manifestRequest)cmd;
+
+                    if (mreq.valist != null)
+                    {
+                        foreach (var it in mreq.valist)
+                        {
+                            scmd = new ScanFileData()
+                            {
+                                RequestId = new Guid(cmd.requestId),
+                                ORD_NO = (int)it,
+                                DSP_SEQ = mreq.Stop.GetBytes()[0],
+                                Command = eCommand.ScanFileComplete
+                            };
+                            //Sendback((O)mcmd, cbsend);
+                        }
+                    }
+                    break;
+
                 case eCommand.Trucks:
                     mcmd = new TruckData((trucks)cmd);
                     Sendback((O)mcmd, cbsend);
@@ -364,7 +377,18 @@ namespace MobileDeliveryGeneral.Threading
                     }
                     break;
                 case eCommand.OrdersLoad:
-                    mcmd = new OrderData((orders)cmd);
+
+                    //mcmd = new OrderMasterData()
+                    //{
+                    //    Command = cmd.command,
+                    //    ORD_NO = ((orderMaster)cmd).ORD_NO,
+                    //    Status = ((orderMaster)cmd).Status
+                    //};
+
+
+                    mcmd = new OrderModelData((orders)cmd);
+
+
                     Sendback((O)mcmd, cbsend);
                     break;
                 case eCommand.OrdersLoadComplete:
@@ -385,7 +409,7 @@ namespace MobileDeliveryGeneral.Threading
                     else
                     {
                         Logger.Info($"OrdersLoadComplete: {cmd.ToString()}");
-                        mcmd = new OrderData()
+                        mcmd = new OrderModelData()
                         {
                             Command = cmd.command,
 //                            DLR_NO = id,
@@ -408,6 +432,15 @@ namespace MobileDeliveryGeneral.Threading
         {
             if (gReqId != Guid.Empty)
                 dDoneEvent[gReqId].evnt.Set();
+        }
+
+        public void CleanEvents()
+        {
+            foreach (var ev in dDoneEvent)
+            {
+                Logger.Info($"Celaning the event {ev.Value.name}  GUID: {ev.Key.ToString()}");
+                ev.Value.evnt.Set();
+            }
         }
 
         void Sendback(O cmd, Func<byte[], Task> cbsend = null)

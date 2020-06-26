@@ -25,6 +25,7 @@ namespace MobileDeliveryGeneral.Data
         public short MDL_CNT { get; set; }
         public byte PAT_POS { get; set; }
         public DateTime SCAN_DATE_TIME { get; set; }
+
         public int Count;
         private bool isselected;
         public OrderStatus Status { get; set; }
@@ -42,7 +43,7 @@ namespace MobileDeliveryGeneral.Data
             OPT_TYPE = od.OPT_TYPE;
             DESC = od.DESC;
             CLR = od.CLR;
-            
+           // BIN_NO = od.BIN;
             MDL_CNT = od.MDL_CNT;
             PAT_POS = Convert.ToByte(od.PAT_POS);
 

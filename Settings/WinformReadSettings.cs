@@ -5,9 +5,9 @@ using System.Configuration;
 
 namespace MobileDeliveryGeneral.Settings
 {
-    public static class WinformReadSettings
+    public static class WinformReadSettingsOld
     {
-        public static UMDAppConfig GetSettings(Type type)
+        public static UMDAppConfigOld GetSettings(Type type)
         {
             string logfilepath = ConfigurationManager.AppSettings["LogPath"];
             string loglevel = ConfigurationManager.AppSettings["LogLevel"];

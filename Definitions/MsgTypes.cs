@@ -117,6 +117,7 @@ namespace MobileDeliveryGeneral.Definitions
             OrderDetailsComplete,       // = (1 << 9),
 
             ScanFile,
+            ScanFileComplete,
 
             OrderOptions,
             OrderOptionsComplete,
@@ -146,6 +147,7 @@ namespace MobileDeliveryGeneral.Definitions
             StopsLoadComplete,
             TrucksLoadComplete,
             OrdersLoadComplete,
+            OrderModelLoadComplete,
 
             WalletCommand,
             GetNewHeads,
@@ -156,6 +158,8 @@ namespace MobileDeliveryGeneral.Definitions
             Withdraw,
             SweepToCold,
             TransferToHot,
+
+            OrderModel,
 
             //Accounts Receivables / Invoicing
             AccountReceivable
@@ -903,27 +907,48 @@ namespace MobileDeliveryGeneral.Definitions
                 using (var reader = new BinaryReader(new MemoryStream(bytes)))
                 {
                     //var s = new manifestMaster();
-
-                    if (bytes.Length >= fldsz_Command)
+                    try
+                    {
+                        if (bytes.Length >= fldsz_Command)
                         command = (eCommand)reader.ReadByte();
-                    requestId = reader.ReadBytes(fldsz_GUID);
-                    ManifestId = reader.ReadInt64();
-                    DisplaySeq = reader.ReadInt32();
-                    DealerNo = reader.ReadInt64();
-                    DealerName = reader.ReadString();
-                    Address = reader.ReadString();
-                    PhoneNumber = reader.ReadString();
-                    Description = reader.ReadString();
-                    Notes = reader.ReadString();
-                    TRK_CDE = reader.ReadString();
-                    CustomerId = reader.ReadInt32();
-                    BillComplete = reader.ReadBoolean();
-                    ScanDateTime = DateTime.FromBinary(reader.ReadInt64());
+                        requestId = reader.ReadBytes(fldsz_GUID);
+                        ManifestId = reader.ReadInt64();
+                        DisplaySeq = reader.ReadInt32();
+                        DealerNo = reader.ReadInt64();
+                        DealerName = reader.ReadString();
+                        Address = reader.ReadString();
+                        PhoneNumber = reader.ReadString();
+                        Description = reader.ReadString();
+                        Notes = reader.ReadString();
+                        TRK_CDE = reader.ReadString();
+                        CustomerId = reader.ReadInt32();
+                        BillComplete = reader.ReadBoolean();
+                
+                        ScanDateTime = DateTime.FromBinary(reader.ReadInt64());
+                    }
+                    catch (Exception ex) { }
                     return this;
                 }
             }
         }
 
+        public class stopOrders : isaCommand
+        {
+            public eCommand command { get; set; } = eCommand.OrdersLoad;
+            public byte[] requestId { get; set; }
+            public Int32 ORD_NO { get; set; }
+            public Int32 DLR_NO { get; set; }
+
+            public isaCommand FromArray(byte[] bytes)
+            {
+                throw new NotImplementedException();
+            }
+
+            public byte[] ToArray()
+            {
+                throw new NotImplementedException();
+            }
+        }
         public class orders : isaCommand
         {
             public eCommand command { get; set; } = eCommand.OrdersLoad;
@@ -940,6 +965,8 @@ namespace MobileDeliveryGeneral.Definitions
             public String DLR_NME { get; set; }
             public String DLR_ADDR { get; set; }
             public String DLR_ADDR2 { get; set; }
+            public String DLR_CSZ { get; set; }
+            public Int16 DLR_CT { get; set; }
             public String SHP_NME { get; set; }
             public String SHP_ADDR { get; set; }
             public String SHP_ADDR2 { get; set; }
@@ -955,6 +982,9 @@ namespace MobileDeliveryGeneral.Definitions
             public String ORD_TYPE { get; set; }
             public Decimal DEPOSIT { get; set; }
             public String ENT_BY { get; set; }
+            public String HLD_FLG { get; set; }
+            public String HLD_BY { get; set; }
+            public String HLD_MSG { get; set; }
             public Decimal ORD_AMT { get; set; }
             public Int16 WIN_QTY { get; set; }
             public Int16 PAR_QTY { get; set; }
@@ -967,22 +997,10 @@ namespace MobileDeliveryGeneral.Definitions
             public long ManifestId;
             public byte Status;
 
-            /*public int DSP_SEQ;
-            public int CustomerId;
-            public long DLR_NO;
-            public long ORD_NO;
-            public string CLR;
-            public int MDL_CNT;
-            public string MDL_NO;
-            public int WIN_CNT;
-            public string DESC;
-            public string MODEL;
-            public byte Status;
-
-            public decimal WIDTH;
-            public decimal HEIGHT;
-            */
-            public orders() { }
+            public orderDisplayDetails ordDetails = new orderDisplayDetails();
+            public orders() {
+               // ordDetails = new orderDetails();
+            }
             public orders(OrderData st)
             {
                 command = st.Command;
@@ -1002,6 +1020,9 @@ namespace MobileDeliveryGeneral.Definitions
                 Status = (byte)st.Status;
                 //HEIGHT = st.HEIGHT;
                 //WIDTH = st.WIDTH;
+                //ordDetails =;
+
+                //ordDetails.BIN = st.
             }
 
             public override string ToString()
@@ -1017,29 +1038,7 @@ namespace MobileDeliveryGeneral.Definitions
                        $"\t\t{DLR_NO + Environment.NewLine}" +
                         $"\t\t{ORD_NO + Environment.NewLine} " +
                 $"\t\t{SHP_DTE + Environment.NewLine} " ; 
-
-                //$"\t\t{CLR + Environment.NewLine}" +
-                         //$"\t\t{MDL_CNT + Environment.NewLine}" +
-                         //$"\t\t{MDL_NO + Environment.NewLine}" +
-                         //$"\t\t{WIN_CNT + Environment.NewLine}" +
-                         //$"\t\t{WIDTH + Environment.NewLine}" +
-                         //$"\t\t{HEIGHT + Environment.NewLine}";
             }
-            //public orders(OrderMaster st)
-            //{
-            //    command = st.Command;
-            //    requestId = st.RequestId.ToByteArray();
-            //    //ManifestId = st.;
-            //   // DSP_SEQ = st.DS;
-            //    CustomerId = st.;
-            //    DLR_NO = st.DLR_NO;
-            //    ORD_NO = st.ORD_NO;
-            //    CLR = st.CLR;
-            //    MDL_CNT = st.MDL_CNT;
-            //    MDL_NO = st.MDL_NO;
-            //    WIN_CNT = st.WIN_CNT;
-            //    //Status = st.Status;
-            //}
             public byte[] ToArray()
             {
                 using (var stream = manager.GetStream())
@@ -1060,6 +1059,8 @@ namespace MobileDeliveryGeneral.Definitions
                     writer.Write(DLR_NME.ToStringExNull());
                     writer.Write(DLR_ADDR.ToStringExNull());
                     writer.Write(DLR_ADDR2.ToStringExNull());
+                    writer.Write(DLR_CSZ.ToStringExNull());
+                    writer.Write(DLR_CT);
                     writer.Write(SHP_NME.ToStringExNull());
                     writer.Write(SHP_ADDR.ToStringExNull());
                     writer.Write(SHP_ADDR2.ToStringExNull());
@@ -1075,6 +1076,9 @@ namespace MobileDeliveryGeneral.Definitions
                     // writer.Write(ORD_TYPE);
                     //writer.Write(DEPOSIT);
                     writer.Write(ENT_BY.ToStringExNull());
+                    writer.Write(HLD_FLG);
+                    writer.Write(HLD_BY);
+                    writer.Write(HLD_MSG);
                     writer.Write(ORD_AMT);
                     writer.Write(WIN_QTY);
                     writer.Write(PAR_QTY);
@@ -1083,6 +1087,9 @@ namespace MobileDeliveryGeneral.Definitions
                     writer.Write(SHP_QTY);
                     writer.Write(SHP_AMT);
                     writer.Write(MISC_TEXT.ToStringExNull());
+
+                    ordDetails.ToArray(writer);
+                   
 
                     return stream.ToArray();
                 }
@@ -1106,6 +1113,8 @@ namespace MobileDeliveryGeneral.Definitions
                     DLR_NME = reader.ReadString();
                     DLR_ADDR = reader.ReadString();
                     DLR_ADDR2 = reader.ReadString();
+                    DLR_CSZ = reader.ReadString();
+                    DLR_CT = reader.ReadInt16();
                     SHP_NME = reader.ReadString();
                     SHP_ADDR = reader.ReadString();
                     SHP_ADDR2 = reader.ReadString();
@@ -1120,8 +1129,10 @@ namespace MobileDeliveryGeneral.Definitions
                     RTE_CDE = reader.ReadString();
                     //ORD_TYPE = reader.ReadString();
                     //DEPOSIT = reader.ReadDecimal();
-
                     ENT_BY = reader.ReadString();
+                    HLD_FLG = reader.ReadString();
+                    HLD_BY = reader.ReadString();
+                    HLD_MSG = reader.ReadString();
                     ORD_AMT = reader.ReadDecimal();
                     WIN_QTY = reader.ReadInt16();
                     PAR_QTY = reader.ReadInt16();
@@ -1130,19 +1141,8 @@ namespace MobileDeliveryGeneral.Definitions
                     SHP_QTY = reader.ReadInt16();
                     SHP_AMT = reader.ReadDecimal();
                     MISC_TEXT = reader.ReadString();
+                    ordDetails = (orderDisplayDetails)new orderDisplayDetails().FromArray(reader);
 
-                    //DSP_SEQ = reader.ReadInt32();
-                    //CustomerId = reader.ReadInt32();
-                    //DLR_NO = reader.ReadInt64();
-                    //ORD_NO = reader.ReadInt64();
-                    //CLR = reader.ReadString();
-                    //MDL_CNT = reader.ReadInt32();
-                    //MDL_NO = reader.ReadString();
-                    //WIN_CNT = reader.ReadInt32();
-                    //DESC = reader.ReadString();
-                    //Status = reader.ReadByte();
-                    //WIDTH = reader.ReadDecimal();
-                    //HEIGHT = reader.ReadDecimal();
                     return this;
                 }
             }
@@ -1321,6 +1321,9 @@ namespace MobileDeliveryGeneral.Definitions
             public String RTE_CDE { get; set; }
             public Decimal DEPOSIT { get; set; }
             public String ENT_BY { get; set; }
+            public String HLD_FLG { get; set; }
+            public String HLD_BY { get; set; }
+            public String HLD_MSG { get; set; }
             public Int32 DTE_ENT { get; set; }
             public Decimal ORD_AMT { get; set; }
             public Int16 WIN_QTY { get; set; }
@@ -1335,9 +1338,11 @@ namespace MobileDeliveryGeneral.Definitions
             public DateTime SCAN_DATE_TIME { get; set; }
 
             public status status;
+
+           // public orderOptions ordOpt=new orderOptions();
             #region disabled fields
-            public int ScanFileCount { get{ return ScanFile.Count; }  }
-            public List<scanFile> ScanFile { get; set; } = new List<scanFile>();
+            //public int ScanFileCount { get{ return ScanFile.Count; }  }
+            //public List<scanFile> ScanFile { get; set; } = new List<scanFile>();
             #endregion
             public override string ToString()
             {
@@ -1371,6 +1376,9 @@ namespace MobileDeliveryGeneral.Definitions
                     $"\t\t{RTE_CDE + Environment.NewLine}" +
                     $"\t\t{DEPOSIT + Environment.NewLine}" +
                     $"\t\t{ENT_BY + Environment.NewLine}" +
+                    $"\t\t{HLD_FLG + Environment.NewLine}" +
+                    $"\t\t{HLD_BY + Environment.NewLine}" +
+                    $"\t\t{HLD_MSG + Environment.NewLine}" +
                     $"\t\t{ORD_AMT + Environment.NewLine}" +
                     $"\t\t{WIN_QTY + Environment.NewLine}" +
                     $"\t\t{PAR_QTY + Environment.NewLine}" +
@@ -1425,34 +1433,6 @@ namespace MobileDeliveryGeneral.Definitions
                     SHP_QTY = omd.SHP_QTY;
                     SHP_AMT = omd.SHP_AMT;
                     MISC_TEXT = omd.MISC_TEXT;
-                    DLR_NO = omd.DLR_NO;
-                    DLR_PO = omd.DLR_PO;
-                    ORD_DTE = omd.ORD_DTE;
-                    SHIP_DTE = omd.SHIP_DTE;
-                    CMNT1 = omd.CMNT1;
-                    CMNT2 = omd.CMNT2;
-                    DLR_NME = omd.DLR_NME;
-                    DLR_ADDR = omd.DLR_ADDR;
-                    DLR_ADDR2 = omd.DLR_ADDR2;
-                    SHP_NME = omd.SHP_NME;
-                    SHP_ADDR = omd.SHP_ADDR;
-                    SHP_ADDR2 = omd.SHP_ADDR2;
-                    SHP_CSZ = omd.SHP_CSZ;
-                    SHP_TEL = omd.SHP_TEL;
-                    SHP_CT = omd.SHP_CT;
-                    SHP_ZIP = omd.SHP_ZIP;
-                    CUS_NME = omd.CUS_NME;
-                    CUS_ADDR = omd.CUS_ADDR;
-                    CUS_CSZ = omd.CUS_CSZ;
-                    CUS_TEL = omd.CUS_TEL;
-                    RTE_CDE = omd.RTE_CDE;
-                    ENT_BY = omd.ENT_BY;
-                    WIN_QTY = omd.WIN_QTY;
-                    STK_QTY = omd.STK_QTY;
-                    CMP_QTY = omd.CMP_QTY;
-                    SHP_QTY = omd.SHP_QTY;
-                    SHP_AMT = omd.SHP_AMT;
-                    MISC_TEXT = omd.MISC_TEXT;
                     Status = omd.Status;
                     ManId = omd.ManId;
                     SCAN_DATE_TIME = omd.SCAN_DATE_TIME;
@@ -1460,6 +1440,48 @@ namespace MobileDeliveryGeneral.Definitions
                 }
                 catch (Exception ex) { Logger.Error($"orderMaster Error:  {ex.Message}"); }
             }
+
+            public orderMaster(OrderMasterData ord, long id)
+            {
+                command = ord.Command;
+                requestId = ord.RequestId.ToByteArray();
+
+                ORD_NO = ord.ORD_NO;
+                DLR_NO = ord.DLR_NO;
+                DLR_PO = ord.DLR_PO;
+                ORD_DTE = ord.ORD_DTE;
+                SHIP_DTE = ord.SHIP_DTE;
+                CMNT1 = ord.CMNT1;
+                CMNT2 = ord.CMNT2;
+                DLR_NME = ord.DLR_NME;
+                DLR_ADDR = ord.DLR_ADDR;
+                DLR_ADDR2 = ord.DLR_ADDR2;
+                //DLR_CSZ = ord.DLR_CSZ;
+                //DLR_TEL = ord.DLR_TEL;
+                //DLR_CT = ord.DLR_CT;
+                SHP_NME = ord.SHP_NME;
+                SHP_ADDR = ord.SHP_ADDR;
+                SHP_ADDR2 = ord.SHP_ADDR2;
+                SHP_CSZ = ord.SHP_CSZ;
+                SHP_TEL = ord.SHP_TEL;
+                SHP_CT = ord.SHP_CT;
+                SHP_ZIP = ord.SHP_ZIP;
+                CUS_NME = ord.CUS_NME;
+                CUS_ADDR = ord.CUS_ADDR;
+                CUS_CSZ = ord.CUS_CSZ;
+                CUS_TEL = ord.CUS_TEL;
+                RTE_CDE = ord.RTE_CDE;
+                ORD_AMT = ord.ORD_AMT;
+                WIN_QTY = ord.WIN_QTY;
+                STK_QTY = ord.STK_QTY;
+                CMP_QTY = ord.CMP_QTY;
+                SHP_QTY = ord.SHP_QTY;
+                SHP_AMT = ord.SHP_AMT;
+                MISC_TEXT = ord.MISC_TEXT;
+                Status = ord.Status;
+                status = ord.status;
+            }
+
             public orderMaster(OrderData ord, long id)
             {
                 command = ord.Command;
@@ -1550,10 +1572,7 @@ namespace MobileDeliveryGeneral.Definitions
                     writer.Write((Int16)Status);
                     writer.Write(ManId);
                     writer.Write((Int16)status);
-                    //writer.Write(ScanFileCount);
-                    //foreach (var it in ScanFile)
-                    //    it.ToArray(writer);
-
+                    //ordOpt.Write
                     return stream.ToArray();
                 }
             }
@@ -1602,20 +1621,126 @@ namespace MobileDeliveryGeneral.Definitions
                     Status = (OrderStatus)reader.ReadInt16();
                     ManId = reader.ReadInt64();
                     status = (status)reader.ReadInt16();
-                    //int scanFileCount = reader.ReadInt32();
-                    //   ScanFile.Add()
-                    //omd.scanFileData.ForEach(sc => ScanFile.Add(sc.Toscanfile()));
-
-                   // scanFile sf = new scanFile();
-                   //// while (scanFileCount-- > 0)
-                   //     ScanFile.Add((scanFile)sf.FromArray(reader));
-
                 };
                 return this;
             }
             
         }
 
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
+        public struct orderDisplayDetails : isaCommand
+        {
+            public eCommand command { get; set; }
+            public byte[] requestId { get; set; }
+
+
+            public int Id { get; set; }
+            public int ORD_NO { get; set; }
+
+            public short MDL_CNT { get; set; }
+            public string MDL_NO { get; set; }
+
+
+            public string CLR { get; set; }
+            public byte PAT_POS { get; set; }
+            public DateTime SCAN_DATE_TIME { get; set; }
+            public Int16 BIN_NO { get; set; }
+
+            public string DESC { get; set; }
+            public decimal WIDTH { get; set; }
+            public decimal HEIGHT { get; set; }
+            public string ScanTime { get; set; }
+            public OrderStatus Status { get; set; }
+
+
+            
+            public string OPT_TYPE;                 //2
+            public short OPT_NUM;                  //2
+ 
+
+            public override string ToString()
+            {
+                var sReqId = "nullReqId";
+                if (requestId != null)
+                    sReqId = NewGuid(requestId).ToString();
+                return $"" +
+                    $"{Environment.NewLine}\tCommand:{Enum.GetName(typeof(eCommand), command)}{Environment.NewLine}" +
+                    $"\t\t{sReqId + Environment.NewLine}" +
+                    $"\t\t{ORD_NO + Environment.NewLine}" +
+                    $"\t\t{MDL_CNT + Environment.NewLine}" +
+                    $"\t\t{PAT_POS + Environment.NewLine}" +
+                    $"\t\t{BIN_NO + Environment.NewLine}" +
+                    $"\t\t{WIDTH + Environment.NewLine}" +
+                    $"\t\t{HEIGHT + Environment.NewLine}" +
+                    $"\t\t{MDL_NO + Environment.NewLine}" +
+                    $"\t\t{OPT_TYPE + Environment.NewLine}" +
+                    $"\t\t{OPT_NUM + Environment.NewLine}" +
+                    $"\t\t{CLR + Environment.NewLine}" +
+                    $"\t\t{DESC}";
+            }
+            public byte[] ToArray(MemoryStream stream)
+            {
+                using (var writer = new BinaryWriter(stream))
+                {
+                    ToArray(writer);
+                    return stream.ToArray();
+                }
+            }
+            public byte[] ToArray()
+            {
+                using (var stream = manager.GetStream())
+                {
+                    return ToArray(stream);
+                }
+            }
+            public byte[] ToArray(BinaryWriter writer)
+            {
+                using (var stream = manager.GetStream())
+                {
+                    //var writer = new BinaryWriter(stream);
+                    //  writer.Write((byte)command);
+                    //   writer.Write(requestId);
+                    writer.Write(ORD_NO);
+                    writer.Write(WIDTH);
+                    writer.Write(HEIGHT);
+                    writer.Write(MDL_CNT);
+                    writer.Write(PAT_POS);
+                    writer.Write(MDL_NO);   //4 bytes
+                    writer.Write(OPT_TYPE.ToStringExNull());
+                    writer.Write(OPT_NUM);
+                    writer.Write(CLR.ToStringExNull());   //3 bytes
+                    writer.Write(DESC.ToStringExNull());   //60 bytes
+
+                    return stream.ToArray();
+                }
+            }
+
+            public isaCommand FromArray(BinaryReader reader)
+            {
+                //   command = (eCommand)reader.ReadByte();
+                //   requestId = reader.ReadBytes(fldsz_GUID);
+                ORD_NO = reader.ReadInt32();
+                WIDTH = reader.ReadDecimal();
+                HEIGHT = reader.ReadDecimal();
+                MDL_CNT = reader.ReadInt16();
+                PAT_POS = reader.ReadByte();
+                MDL_NO = reader.ReadString();
+                OPT_TYPE = reader.ReadString();
+                OPT_NUM = reader.ReadInt16();
+                CLR = reader.ReadString();
+                DESC = reader.ReadString();
+
+                return this;
+            }
+            public isaCommand FromArray(byte[] bytes)
+            {
+                using (var reader = new BinaryReader(new MemoryStream(bytes)))
+                {
+                    FromArray(reader);
+                };
+                return this;
+            }
+        }
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         public struct orderDetails : isaCommand
         {
@@ -1624,8 +1749,10 @@ namespace MobileDeliveryGeneral.Definitions
             public Int32 ORD_NO { get; set; }
             public Int16 MDL_CNT { get; set; }
             public Int16 PAT_POS { get; set; }
-            
-            public String MDL_NO { get; set; }
+            public decimal WIDTH { get; set; }
+            public decimal HEIGHT { get; set; }
+
+            public string MDL_NO { get; set; }
             public string OPT_TYPE;                 //2
             public short OPT_NUM;                  //2
             public string CLR;                      //3
@@ -1637,55 +1764,79 @@ namespace MobileDeliveryGeneral.Definitions
                 var sReqId = "nullReqId";
                 if (requestId != null)
                     sReqId = NewGuid(requestId).ToString();
-                return $"{Environment.NewLine}\tCommand:{Enum.GetName(typeof(eCommand), command)}{Environment.NewLine}" +
-                    $"\t\t{sReqId + Environment.NewLine}" +
+                return $"" +
+                   // $"{Environment.NewLine}\tCommand:{Enum.GetName(typeof(eCommand), command)}{Environment.NewLine}" +
+                   // $"\t\t{sReqId + Environment.NewLine}" +
                     $"\t\t{ORD_NO + Environment.NewLine}" +
                     $"\t\t{MDL_CNT + Environment.NewLine}" +
                     $"\t\t{PAT_POS + Environment.NewLine}" +
+                    $"\t\t{WIDTH + Environment.NewLine}" +
+                    $"\t\t{HEIGHT + Environment.NewLine}" +
                     $"\t\t{MDL_NO + Environment.NewLine}" +
                     $"\t\t{OPT_TYPE + Environment.NewLine}" +
                     $"\t\t{OPT_NUM + Environment.NewLine}" +
                     $"\t\t{CLR + Environment.NewLine}" +
                     $"\t\t{DESC}";
             }
-
+            public byte[] ToArray(MemoryStream stream)
+            {
+                using (var writer = new BinaryWriter(stream))
+                {
+                    ToArray(writer);
+                    return stream.ToArray();
+                }
+            }
             public byte[] ToArray()
             {
                 using (var stream = manager.GetStream())
                 {
-                    var writer = new BinaryWriter(stream);
+                    return ToArray(stream);
+                }
+            }
+            public byte[] ToArray(BinaryWriter writer)
+            {
+                using (var stream = manager.GetStream())
+                {
+                    //var writer = new BinaryWriter(stream);
                     writer.Write((byte)command);
                     writer.Write(requestId);
                     writer.Write(ORD_NO);
+                    writer.Write(WIDTH);
+                    writer.Write(HEIGHT);
                     writer.Write(MDL_CNT);
                     writer.Write(PAT_POS);
                     writer.Write(MDL_NO);   //4 bytes
-                    if (OPT_TYPE == null)
-                        OPT_TYPE = "";
-                    writer.Write(OPT_TYPE);
+                    writer.Write(OPT_TYPE.ToStringExNull());
                     writer.Write(OPT_NUM);
-                   
-                    writer.Write(CLR);   //3 bytes
-                    writer.Write(DESC);   //60 bytes
+                    writer.Write(CLR.ToStringExNull());   //3 bytes
+                    writer.Write(DESC.ToStringExNull());   //60 bytes
 
                     return stream.ToArray();
                 }
             }
 
+            public isaCommand FromArray(BinaryReader reader)
+            {
+                command = (eCommand)reader.ReadByte();
+                requestId = reader.ReadBytes(fldsz_GUID);
+                ORD_NO = reader.ReadInt32();
+                WIDTH = reader.ReadDecimal();
+                HEIGHT = reader.ReadDecimal();
+                MDL_CNT = reader.ReadInt16();
+                PAT_POS = reader.ReadInt16();
+                MDL_NO = reader.ReadString();
+                OPT_TYPE = reader.ReadString();
+                OPT_NUM = reader.ReadInt16();
+                CLR = reader.ReadString();
+                DESC = reader.ReadString();
+
+                return this;
+            }
             public isaCommand FromArray(byte[] bytes)
             {
                 using (var reader = new BinaryReader(new MemoryStream(bytes)))
                 {
-                    command = (eCommand)reader.ReadByte();
-                    requestId = reader.ReadBytes(fldsz_GUID);
-                    ORD_NO = reader.ReadInt32();
-                    MDL_CNT = reader.ReadInt16();
-                    PAT_POS = reader.ReadInt16();
-                    MDL_NO = reader.ReadString();
-                    OPT_TYPE = reader.ReadString();
-                    OPT_NUM = reader.ReadInt16();
-                    CLR = reader.ReadString();
-                    DESC = reader.ReadString();
+                    FromArray(reader);
                 };
                 return this;
             }
@@ -1790,7 +1941,6 @@ namespace MobileDeliveryGeneral.Definitions
             public Int32 ORD_NO { get; set; }
             public Int16 MDL_CNT { get; set; }
             public Byte PAT_POS { get; set; }
-            public String MODEL { get; set; }
             public String MDL_NO { get; set; }
             public String OPT_TYPE { get; set; }
             public Int16 OPT_NUM { get; set; }
@@ -1830,18 +1980,7 @@ namespace MobileDeliveryGeneral.Definitions
             public Int16 ADD_DAYS { get; set; }
             public Int32 DTE_ADDED { get; set; }
 
-        //public int ORD_NO;                   //4
-        //    public short MDL_CNT;                     //2
-        //    public byte PAT_POS;
-        //    public string MDL_NO;                   //4
-        //    //public string Model;
-        //    public string OPT_TYPE;                 //2
-        //    public short OPT_NUM;                  //2
-        //    public string CLR;                      //3
-        //    public string DESC;                     //60
-        //    public int WIN_CNT;
-        //    public decimal WIDTH;
-        //    public decimal HEIGHT;
+       
             public override string ToString()
             {
                 var sReqId = "nullReqId";
@@ -1868,7 +2007,6 @@ namespace MobileDeliveryGeneral.Definitions
                 ORD_NO = ood.ORD_NO;
                 MDL_CNT = ood.MDL_CNT;
                 PAT_POS = ood.PAT_POS;
-                MODEL = ood.MODEL;
                 MDL_NO = ood.MDL_NO;
                 OPT_TYPE = ood.OPT_TYPE;
                 OPT_NUM = ood.OPT_NUM;
@@ -1927,8 +2065,10 @@ namespace MobileDeliveryGeneral.Definitions
                     writer.Write(CLR);   //3 bytes
                     writer.Write(DESC);   //60 bytes
 
-
-                   // writer.Write(WIN_CNT);
+                    writer.Write(CMT1);
+                    writer.Write(CMT2);
+                    writer.Write(PROD_DESC);
+                    writer.Write(BIN);
                     writer.Write(WIDTH);
                     writer.Write(HEIGHT);
 
@@ -1950,11 +2090,124 @@ namespace MobileDeliveryGeneral.Definitions
                     OPT_NUM = reader.ReadInt16();
                     CLR = reader.ReadString();
                     DESC = reader.ReadString();
-                    //WIN_CNT = reader.ReadInt32();
+                    CMT1 = reader.ReadString();
+                    CMT2 = reader.ReadString();
+                    PROD_DESC = reader.ReadString();
+                    BIN = reader.ReadInt16();
                     WIDTH = reader.ReadDecimal();
                     HEIGHT = reader.ReadDecimal();
                 }; 
                 return this;
+            }
+        }
+
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
+        public struct completeOrder : isaCommand
+        {
+            public eCommand command { get; set; }
+            public byte[] requestId { get; set; }
+            public int ORD_NO { get; set; }
+            public Int16 MDL_CNT { get; set; }
+            public string MDL_NO { get; set; }
+            public Int16 BIN_NO { get; set; }
+            public string DESC { get; set; }
+            public decimal WIDTH { get; set; }
+            public decimal HEIGHT { get; set; }
+            public string ScanTime { get; set; }
+            public OrderStatus Status { get; set; }
+
+            public completeOrder(OrderDetailsModelData odm)
+            {
+                command = odm.Command;
+                requestId = odm.RequestId.ToByteArray();
+                ORD_NO = odm.ORD_NO;
+                MDL_CNT = odm.MDL_CNT;
+                MDL_NO = odm.MDL_NO;
+                BIN_NO = odm.BIN_NO;
+                
+                DESC = odm.DESC;
+                WIDTH = odm.WIDTH;
+                HEIGHT = odm.HEIGHT;
+                ScanTime = odm.ScanTime;
+                Status = odm.Status;
+            }
+            public override string ToString()
+            {
+                var sReqId = "nullReqId";
+                if (requestId != null)
+                    sReqId = NewGuid(requestId).ToString();
+                return $"{Environment.NewLine}\tCommand:{Enum.GetName(typeof(eCommand), command)}{Environment.NewLine}" +
+                    $"\t\t{sReqId + Environment.NewLine}" +
+                    $"\t\t{ORD_NO + Environment.NewLine}" +
+                    $"\t\t{MDL_CNT + Environment.NewLine}" +
+                    $"\t\t{MDL_NO + Environment.NewLine}" +
+                    $"\t\t{BIN_NO.ToString() + Environment.NewLine}" +
+                    $"\t\t{DESC + Environment.NewLine}" +
+                    $"\t\t{WIDTH + Environment.NewLine}" +
+                    $"\t\t{HEIGHT + Environment.NewLine}" +
+                    $"\t\t{ScanTime + Environment.NewLine}" +
+                    $"\t\t{Enum.GetName(typeof(OrderStatus), Status)}";
+            }
+
+            public byte[] ToArray()
+            {
+                using (var stream = manager.GetStream())
+                {
+                    return ToArray(stream);
+                }
+            }
+
+            public byte[] ToArray(MemoryStream stream)
+            {
+                using (var writer = new BinaryWriter(stream))
+                {
+                    ToArray(writer);
+                    return stream.ToArray();
+                }
+            }
+
+
+            public void ToArray(BinaryWriter writer)
+            {
+                writer.Write((byte)eCommand.CompleteOrder);
+                // writer.Write(requestId);
+                writer.Write(ORD_NO);
+                writer.Write(MDL_CNT);
+                writer.Write(MDL_NO.ToStringExNull());
+                writer.Write(BIN_NO);
+                writer.Write(DESC);
+                writer.Write(WIDTH);
+                writer.Write(HEIGHT);
+                writer.Write(ScanTime);
+                writer.Write((Int16)Status);
+            }
+
+            public isaCommand FromArray(byte[] bytes)
+            {
+                using (var reader = new BinaryReader(new MemoryStream(bytes)))
+                {
+                    return FromArray(reader);
+                }
+            }
+
+            public isaCommand FromArray(BinaryReader reader)
+            {
+                var co = new completeOrder();
+
+                using (reader)
+                {
+                    co.command = (eCommand)reader.ReadByte();
+                    //s.requestId = reader.ReadBytes(fldsz_GUID);
+                    co.ORD_NO = reader.ReadInt32();
+                    co.MDL_CNT = reader.ReadInt16();
+                    //PAT_POS = reader.ReadInt16();
+                    //LOT_NO = reader.ReadInt32();
+                    co.BIN_NO = reader.ReadInt16();
+                    co.MDL_NO = reader.ReadString();
+
+                    co.Status = (OrderStatus)reader.ReadInt16();
+                };
+                return co;
             }
         }
 
@@ -1976,7 +2229,7 @@ namespace MobileDeliveryGeneral.Definitions
             public String TRK_CDE { get; set; }
             public Int32 TRK_DTE { get; set; }
             public Int16 WIN_CNT { get; set; }
-            public String DLR_PO { get; set; }
+            //public String DLR_PO { get; set; }
             public Int32 SHP_DTE { get; set; }
             public Int32 SHP_TME { get; set; }
             public String SHP_BY { get; set; }
@@ -1999,10 +2252,34 @@ namespace MobileDeliveryGeneral.Definitions
                 TRK_CDE = s.TRK_CDE;
                 TRK_DTE = s.TRK_DTE;
                 WIN_CNT = s.WIN_CNT;
-                DLR_PO = s.DLR_PO;
+               // DLR_PO = s.DLR_PO;
                 SHP_DTE = s.SHP_DTE;
                 SHP_TME = s.SHP_TME;
                 SHP_BY = s.SHP_BY ;
+                LOCATION = s.LOCATION;
+                REASON = s.REASON;
+                MAN_ID = s.MAN_ID;
+            }
+            public scanFile(ScanFileData s)
+            {
+                command = s.Command;
+                requestId = s.RequestId.ToByteArray();
+                ORD_NO = s.ORD_NO;
+                MDL_CNT = s.MDL_CNT;
+                PAT_POS = s.PAT_POS;
+                LOT_NO = s.LOT_NO;
+                BIN_NO = s.BIN_NO;
+                MDL_NO = s.MDL_NO;
+                INVOICE_FLAG = s.INVOICE_FLAG;
+                INVOICE_NO = s.INVOICE_NO;
+                DSP_SEQ = s.DSP_SEQ;
+                TRK_CDE = s.TRK_CDE;
+                TRK_DTE = s.TRK_DTE;
+                WIN_CNT = s.WIN_CNT;
+                // DLR_PO = s.DLR_PO;
+                SHP_DTE = s.SHP_DTE;
+                SHP_TME = s.SHP_TME;
+                SHP_BY = s.SHP_BY;
                 LOCATION = s.LOCATION;
                 REASON = s.REASON;
                 MAN_ID = s.MAN_ID;
@@ -2049,19 +2326,19 @@ namespace MobileDeliveryGeneral.Definitions
                 writer.Write(PAT_POS);
                 writer.Write(LOT_NO);
                 writer.Write(BIN_NO);
-                writer.Write(MDL_NO);
+                writer.Write(MDL_NO.ToStringExNull());
                 writer.Write(INVOICE_FLAG);
                 writer.Write(INVOICE_NO);
                 writer.Write(DSP_SEQ);
-                writer.Write(TRK_CDE);
+                writer.Write(TRK_CDE.ToStringExNull());
                 writer.Write(TRK_DTE);
                 writer.Write(WIN_CNT);
-                writer.Write(DLR_PO);
+                //writer.Write(DLR_PO.ToStringExNull());
                 writer.Write(SHP_DTE);
                 writer.Write(SHP_TME);
-                writer.Write(SHP_BY);
-                writer.Write(LOCATION);
-                writer.Write(REASON);
+                writer.Write(SHP_BY.ToStringExNull());
+                writer.Write(LOCATION.ToStringExNull());
+                writer.Write(REASON.ToStringExNull());
                 writer.Write(MAN_ID);
             }
 
@@ -2081,7 +2358,7 @@ namespace MobileDeliveryGeneral.Definitions
                 {
                     s.command = (eCommand)reader.ReadByte();
                     //s.requestId = reader.ReadBytes(fldsz_GUID);
-                    s.ORD_NO = reader.ReadInt32();
+                    s.ORD_NO = reader.ReadInt64();
                     s.MDL_CNT = reader.ReadInt16();
                     s.PAT_POS = reader.ReadInt16();
                     s.LOT_NO = reader.ReadInt32();
@@ -2093,7 +2370,7 @@ namespace MobileDeliveryGeneral.Definitions
                     s.TRK_CDE = reader.ReadString();
                     s.TRK_DTE = reader.ReadInt32();
                     s.WIN_CNT = reader.ReadInt16();
-                    s.DLR_PO = reader.ReadString();
+                    //s.DLR_PO = reader.ReadString();
                     s.SHP_DTE = reader.ReadInt32();
                     s.SHP_TME = reader.ReadInt32();
                     s.SHP_BY = reader.ReadString();
@@ -2144,7 +2421,7 @@ namespace MobileDeliveryGeneral.Definitions
                 {
                     var writer = new BinaryWriter(stream);
 
-                    writer.Write((byte)eCommand.OrdersLoad);
+                    writer.Write((byte)command);
                     writer.Write(requestId);
                     writer.Write(ORD_NO);
                     writer.Write(MDL_CNT);

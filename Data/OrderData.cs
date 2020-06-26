@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using MobileDeliveryGeneral.Definitions;
-using MobileDeliveryGeneral.Interfaces.DataInterfaces;
 using static MobileDeliveryGeneral.Definitions.MsgTypes;
 
 namespace MobileDeliveryGeneral.Data
@@ -48,24 +47,12 @@ namespace MobileDeliveryGeneral.Data
         public Decimal SHP_AMT { get; set; }
         public String MISC_TEXT { get; set; }
 
-/*        public int DSP_SEQ { get; set; }
-        public int CustomerId { get; set; }
-        public long DLR_NO { get; set; }
-        public long ORD_NO { get; set; }
-        public string CLR { get; set; }
-        public int MDL_CNT { get; set; }
-        public string MDL_NO { get; set; }
-        public int WIN_CNT { get; set; }
-        public string DESC { get; set; }
-        public decimal WIDTH { get; set; }
-        public decimal HEIGHT { get; set; }
-        */
         private bool isselected;
         public bool prevstate;
         public bool IsSelected { get{return isselected; } set { isselected = value; prevstate = !isselected; if ((((status == status.Uploaded || status == status.Init || status==status.Completed) && Status == OrderStatus.New) || ((status == status.Uploaded || status==status.Init  || status == status.Completed) && Status == OrderStatus.Delivered) || ((status == status.Releasing || status == status.Completed || status == status.Uploaded) && Status == OrderStatus.Shipped)) && prevstate != isselected && OnSelectionChanged != null ) { OnSelectionChanged(this); } } }
-        public List<ScanFileData> scanFileData { get; set; }
 
         public OrderStatus Status { get; set; }
+
 
         public OrderData()
         { status = status.Init; }

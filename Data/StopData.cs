@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using MobileDeliveryGeneral.DataManager.Interfaces;
 using MobileDeliveryGeneral.Interfaces.DataInterfaces;
+using SQLite;
 using static MobileDeliveryGeneral.Definitions.MsgTypes;
 
 namespace MobileDeliveryGeneral.Data
 {
-    public class StopData : BaseData<StopData>
+    public class StopData : BaseData<StopData>, isaCacheItem<StopData>
     {
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
+
         public override eCommand Command { get; set; } = eCommand.Stops;
         public long ManifestId { get; set; }
         public int DisplaySeq { get; set; }

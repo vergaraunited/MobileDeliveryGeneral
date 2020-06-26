@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MobileDeliveryGeneral.Settings
 {
-    public class WinsysFiles
+    public class WinsysFilesOld
     {
         public string WinsysSrcFile { get; set;}
         public string WinsysDstFile { get; set; }

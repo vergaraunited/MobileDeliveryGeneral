@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MobileDeliveryGeneral.Data;
-using MobileDeliveryGeneral.Definitions;
 using MobileDeliveryGeneral.Interfaces;
 using static MobileDeliveryGeneral.Definitions.MsgTypes;
 
@@ -48,8 +47,19 @@ namespace MobileDeliveryGeneral.Utilities
                     Logger.Debug("Command Pong recevied!");
                     break;
                 case eCommand.Manifest:
+                case eCommand.OrdersUpload:
+                case eCommand.OrdersLoad:
+                case eCommand.OrderOptionsComplete:
+                    //case eCommand.OrdersLoadComplete:
+                    //case eCommand.Stops:
+                    //case eCommand.StopsLoadComplete:
                     ReceivedMsg(cmd);
+                    //MsgProcessor.ReceiveMessage(cmd);
                     //SendMsg(new Command { command = eCommand.Manifest});
+                    break;
+                case eCommand.Trucks:
+                    trucks truck = (trucks)cmd;
+
                     break;
                 default:
                     //msg.ReceiveMessage(cmd);
@@ -58,7 +68,7 @@ namespace MobileDeliveryGeneral.Utilities
             return cmd;
         }
 
-        static Dictionary<long, List<long>> dStopOrders = new Dictionary<long, List<long>>();
+        //static Dictionary<long, List<long>> dStopOrders = new Dictionary<long, List<long>>();
         static Dictionary<short, Dictionary<byte,List<long>>> dTruckCodeToDealerNumbers = new Dictionary<short, Dictionary<byte,List<long>>>();  //TruckCode -> <Seq, List<Orders>>
         public static isaCommand CommandFactory(byte[] cmdBytes)
         {
@@ -88,10 +98,8 @@ namespace MobileDeliveryGeneral.Utilities
                     //UMDManifest.
                     break;
                 case eCommand.OrdersLoad:
-                    //orders ords = new orders();
-                    //cmd = ords.FromArray(cmdBytes);
-                    orderMaster orm = new orderMaster();
-                    cmd = orm.FromArray(cmdBytes);
+                    orders ords = new orders();
+                    cmd = ords.FromArray(cmdBytes);
                     break;
                 case eCommand.Trucks:
                     trucks trks = new trucks();
@@ -113,22 +121,26 @@ namespace MobileDeliveryGeneral.Utilities
                     manifestDetails md = new manifestDetails();
                     cmd = md.FromArray(cmdBytes);
                     break;
+                case eCommand.OrderModel:
+                    orders o = new orders();
+                    cmd = o.FromArray(cmdBytes);
+                   // OrderModelData omd = new OrderModelData(o);
+                    break;
                 case eCommand.OrdersUpload:
                     orderMaster om = new orderMaster();
                     cmd = om.FromArray(cmdBytes);
-                    OrderMasterData omd = new OrderMasterData(om);
-                    if (!dStopOrders.ContainsKey(omd.DLR_NO))
-                        dStopOrders.Add(omd.DLR_NO, new List<long>() { omd.ORD_NO });
+                    //OrderMasterData omsd = new OrderMasterData(om);
+                    
                     break;
                 case eCommand.ScanFile:
                     scanFile sc = new scanFile();
                     cmd = sc.FromArray(cmdBytes);
-                    ScanFileData scd = new ScanFileData(sc);
+                    //ScanFileData scd = new ScanFileData(sc);
                     break;
                 case eCommand.OrderOptions:
                     orderOptions oo = new orderOptions();
                     cmd = oo.FromArray(cmdBytes);
-                    //OrderOptionsData ood = new OrderOptionsData(oo);
+                    OrderOptionsData ood = new OrderOptionsData(oo);
                     break;
                 case eCommand.AccountReceivable:
                     accountReceivable ar = new accountReceivable();
@@ -145,6 +157,7 @@ namespace MobileDeliveryGeneral.Utilities
                 case eCommand.ManifestDetailsComplete:
                 case eCommand.UploadManifestComplete:
                 case eCommand.LoadFilesComplete:
+                case eCommand.ScanFileComplete:
                     Logger.Info($"CommandFactory: {Enum.GetName(typeof(eCommand), cmd.command) + Environment.NewLine}");
                     manifestRequest req = new manifestRequest();
                     Logger.Info($"CommandFactory: {req.ToString()}");

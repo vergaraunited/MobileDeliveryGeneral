@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using MobileDeliveryGeneral.ExtMethods;
-using MobileDeliveryGeneral.Interfaces.DataInterfaces;
+using MobileDeliveryGeneral.DataManager.Interfaces;
+using MobileDeliveryGeneral.Definitions;
+using SQLite;
 using static MobileDeliveryGeneral.Definitions.MsgTypes;
 
 namespace MobileDeliveryGeneral.Data
 {
-    public class OrderMasterData : BaseData<OrderMasterData>
+    public class OrderMasterData : BaseData<OrderMasterData>, isaCacheItem<OrderMasterData>
     {
+        public delegate void cmdFireOnSelected(OrderMasterData od);
+        public cmdFireOnSelected OnSelectionChanged;
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
         public override eCommand Command { get; set; } = eCommand.OrdersLoad;
         public Int32 ORD_NO { get; set; }
         public Int32 DLR_NO { get; set; }
@@ -21,6 +25,8 @@ namespace MobileDeliveryGeneral.Data
         public String DLR_NME { get; set; }
         public String DLR_ADDR { get; set; }
         public String DLR_ADDR2 { get; set; }
+        public String DLR_TEL { get; set; }
+        public String DLR_CSZ { get; set; }
         public String SHP_NME { get; set; }
         public String SHP_ADDR { get; set; }
         public String SHP_ADDR2 { get; set; }
@@ -36,6 +42,9 @@ namespace MobileDeliveryGeneral.Data
         public Decimal DEPOSIT { get; set; }
         public String ORD_TYPE { get; set; }
         public String ENT_BY { get; set; }
+        public String HLD_FLG { get; set; }
+        public String HLD_BY { get; set; }
+        public String HLD_MSG { get; set; }
         public Decimal ORD_AMT { get; set; }
         public Int16 WIN_QTY { get; set; }
         public Int16 STK_QTY { get; set; }
@@ -45,14 +54,16 @@ namespace MobileDeliveryGeneral.Data
         public String MISC_TEXT { get; set; }
 
         public long ManId;
-        public bool IsSelected;
+        private bool isselected;
         public DateTime SCAN_DATE_TIME { get; set; }
         public OrderStatus Status { get; set; }
 
-        //public List<ScanFileData> scanFileData = new List<ScanFileData>();
+        public List<ScanFileData> scanFileData = new List<ScanFileData>();
+        public bool prevstate;
+        public bool IsSelected { get { return isselected; } set { isselected = value; prevstate = !isselected; if ((((status == status.Uploaded || status == status.Init || status == status.Completed) && Status == OrderStatus.New) || ((status == status.Uploaded || status == status.Init || status == status.Completed) && Status == OrderStatus.Delivered) || ((status == status.Releasing || status == status.Completed || status == status.Uploaded) && Status == OrderStatus.Shipped)) && prevstate != isselected && OnSelectionChanged != null) { OnSelectionChanged(this); } } }
 
         public OrderMasterData()
-        { }
+        { status = status.Init; Status = OrderStatus.New; }
         public OrderMasterData(OrderMasterData omd)
         {
             this.Command= omd.Command;
@@ -81,6 +92,9 @@ namespace MobileDeliveryGeneral.Data
             CUS_TEL = omd.CUS_TEL;
             RTE_CDE = omd.RTE_CDE;
             ORD_TYPE = omd.ORD_TYPE;
+            HLD_FLG = omd.HLD_FLG;
+            HLD_BY = omd.HLD_BY;
+            HLD_MSG = omd.HLD_MSG;
             ENT_BY = omd.ENT_BY;
             ORD_AMT = omd.ORD_AMT;
             WIN_QTY = omd.WIN_QTY;
@@ -89,7 +103,8 @@ namespace MobileDeliveryGeneral.Data
             SHP_QTY = omd.SHP_QTY;
             SHP_AMT = omd.SHP_AMT;
             MISC_TEXT = omd.MISC_TEXT;
-            
+            Status = omd.Status;
+
             this.ManId=omd.ManId;
             this.IsSelected=omd.IsSelected;
             this.SCAN_DATE_TIME= omd.SCAN_DATE_TIME;
@@ -105,7 +120,7 @@ namespace MobileDeliveryGeneral.Data
 
 
             ORD_NO = sd.ORD_NO;
-            DLR_NO = (int)sd.DLR_NO;
+            DLR_NO = sd.DLR_NO;
             DLR_PO = sd.DLR_PO;
             ORD_DTE = sd.ORD_DTE;
             SHP_DTE = sd.SHP_DTE;
@@ -131,6 +146,9 @@ namespace MobileDeliveryGeneral.Data
             ENT_BY = sd.ENT_BY;
             ORD_AMT = sd.ORD_AMT;
             ENT_BY = sd.ENT_BY;
+            HLD_FLG = sd.HLD_FLG;
+            HLD_BY = sd.HLD_BY;
+            HLD_MSG = sd.HLD_MSG;
             WIN_QTY = sd.WIN_QTY;
             STK_QTY = sd.STK_QTY;
             CMP_QTY = sd.CMP_QTY;
@@ -138,6 +156,7 @@ namespace MobileDeliveryGeneral.Data
             SHP_AMT = sd.SHP_AMT;
             MISC_TEXT = sd.MISC_TEXT;
             IsSelected = false;
+            Status = (OrderStatus)sd.Status;
         }
         public OrderData GetOrderData()
         {
@@ -194,6 +213,9 @@ namespace MobileDeliveryGeneral.Data
             CUS_TEL = sd.CUS_TEL;
             RTE_CDE = sd.RTE_CDE;
             ENT_BY = sd.ENT_BY;
+            HLD_FLG = sd.HLD_FLG;
+            HLD_BY = sd.HLD_BY;
+            HLD_MSG = sd.HLD_MSG;
             ORD_AMT = sd.ORD_AMT;
             WIN_QTY = sd.WIN_QTY;
             STK_QTY = sd.STK_QTY;
@@ -201,7 +223,7 @@ namespace MobileDeliveryGeneral.Data
             SHP_QTY = sd.SHP_QTY;
             SHP_AMT = sd.SHP_AMT;
             MISC_TEXT = sd.MISC_TEXT;
-
+            Status = sd.Status;
             //scanFileData.AddRange(sd.ScanFile.Select(s => new ScanFileData(s)).ToList());
         }
         public override string ToString()

@@ -4,8 +4,8 @@ namespace MobileDeliveryGeneral.Settings
 {
     public static class GlobalSetting
     {
-        static UMDAppConfig _config;
-        public static UMDAppConfig Config
+        static UMDAppConfigOld _config;
+        public static UMDAppConfigOld Config
         {
             get { return _config; }
             set
@@ -15,11 +15,11 @@ namespace MobileDeliveryGeneral.Settings
             }
         }  
 
-        private static void UpdateConfig(UMDAppConfig config)
+        private static void UpdateConfig(UMDAppConfigOld config)
         {
             if (config.srvSet == null)
             {
-                config.srvSet = new SocketSettings()
+                config.srvSet = new SocketSettingsOld()
                 {
                     name = "defaultName",
                     port = 81,
@@ -34,20 +34,20 @@ namespace MobileDeliveryGeneral.Settings
             }
             if (config.winsysFiles == null)
             {
-                config.winsysFiles = new WinsysFiles()
+                config.winsysFiles = new WinsysFilesOld()
                 {
                     WinsysDstFile = MobileDeliveryGeneral.Utilities.HomeDirectoryPaths.GetUserHome(config.AppName),
                     WinsysSrcFile = @"\\Fs01\vol1\Winsys32\DATA"
                 };
             }
 
-            _config = new UMDAppConfig()
+            _config = new UMDAppConfigOld()
             {
                 AppName = config.AppName,
                 LogLevel = config.LogLevel,
                 LogPath = config.LogPath,
                 SQLConn = config.SQLConn,
-                srvSet = new SocketSettings()
+                srvSet = new SocketSettingsOld()
                 {
                     name = config.srvSet.name,
                     port = config.srvSet.port,
@@ -60,7 +60,7 @@ namespace MobileDeliveryGeneral.Settings
 
                 Version = config.Version,
 
-                winsysFiles = new WinsysFiles() {  WinsysDstFile= config.winsysFiles.WinsysDstFile, WinsysSrcFile=config.winsysFiles.WinsysSrcFile}
+                winsysFiles = new WinsysFilesOld() {  WinsysDstFile= config.winsysFiles.WinsysDstFile, WinsysSrcFile=config.winsysFiles.WinsysSrcFile}
             };
         }
     }

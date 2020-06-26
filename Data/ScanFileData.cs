@@ -1,12 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using MobileDeliveryGeneral.DataManager.Interfaces;
+using MobileDeliveryGeneral.Definitions;
+using SQLite;
 using static MobileDeliveryGeneral.Definitions.MsgTypes;
 
 namespace MobileDeliveryGeneral.Data
 {
-    public class ScanFileData : BaseData<ScanFileData>
+    public class ScanFileData : BaseData<ScanFileData>, isaCacheItem<ScanFileData>
     {
+        public delegate void cmdFireOnSelected(ScanFileData od);
+        public cmdFireOnSelected OnSelectionChanged;
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
         public override eCommand Command { get; set; } = eCommand.ScanFile;
 
         public Int32 ORD_NO { get; set; }
@@ -28,7 +33,24 @@ namespace MobileDeliveryGeneral.Data
         public String LOCATION { get; set; }
         public String REASON { get; set; }
         public Int64 MAN_ID { get; set; }
+        private bool isselected;
+        public OrderStatus Status { get; set; }
 
+        //public List<ScanFileData> scanFileData = new List<ScanFileData>();
+        public bool prevstate;
+        public bool IsSelected
+        {
+            get { return isselected; }
+            set
+            {
+                isselected = value; prevstate = !isselected;
+                if ((((status == status.Uploaded || status == status.Init || status == status.Completed) && Status == OrderStatus.New) || ((status == status.Uploaded || status == status.Init || status == status.Completed) && Status == OrderStatus.Delivered) || ((status == status.Releasing || status == status.Completed || status == status.Uploaded) && Status == OrderStatus.Shipped)) && prevstate != isselected && OnSelectionChanged != null)
+                { OnSelectionChanged(this); }
+            }
+        }
+
+
+        public ScanFileData() { }
         public ScanFileData(scanFile sf)
         {
             ORD_NO = (int)sf.ORD_NO;
