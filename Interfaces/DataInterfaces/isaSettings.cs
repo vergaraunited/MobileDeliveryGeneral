@@ -1,7 +1,4 @@
-﻿using System;
-using MobileDeliveryGeneral.Definitions;
-
-namespace MobileDeliveryGeneral.Interfaces.DataInterfaces
+﻿namespace MobileDeliveryGeneral.Interfaces.DataInterfaces
 {
     public interface isaSettings: IMDMMessage
     {

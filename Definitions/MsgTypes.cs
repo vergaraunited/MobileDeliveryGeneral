@@ -7,7 +7,6 @@ using System.Runtime.InteropServices;
 using MobileDeliveryGeneral.Data;
 using MobileDeliveryGeneral.ExtMethods;
 using static MobileDeliveryGeneral.Definitions.enums;
-using System.Text;
 
 namespace MobileDeliveryGeneral.Definitions
 {

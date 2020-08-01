@@ -1,15 +1,12 @@
-﻿using System;
-using MobileDeliveryGeneral.Settings;
-using MobileDeliveryGeneral.Utilities;
-using static MobileDeliveryGeneral.Definitions.MsgTypes;
+﻿//using MobileDeliverySettings.Settings;
 
 namespace MobileDeliveryGeneral.Interfaces
 {
-    public interface isaMobileDeliveryClient : isaReceiveMessageCallback, isaSendMessageCallback
-    {
-        bool Connect();
+    //    public interface isaMobileDeliveryClient : isaReceiveMessageCallback, isaSendMessageCallback
+    //    {
+    //        bool Connect();
 
-       void Init(SocketSettings sockSet, ref SendMsgDelegate sm, ReceiveMsgDelegate rcvMsg = null);
-        SocketSettings socSet { get; set; }
-    }
+    //       void Init(SocketSettings sockSet, ref SendMsgDelegate sm, ReceiveMsgDelegate rcvMsg = null);
+    //        SocketSettings socSet { get; set; }
+    //    }
 }

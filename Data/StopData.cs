@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using MobileDeliveryGeneral.DataManager.Interfaces;
-using MobileDeliveryGeneral.Interfaces.DataInterfaces;
 using SQLite;
 using static MobileDeliveryGeneral.Definitions.MsgTypes;
 

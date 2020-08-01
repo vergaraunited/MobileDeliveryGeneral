@@ -1,5 +1,4 @@
 ﻿using System;
-using MobileDeliveryGeneral.Interfaces.DataInterfaces;
 using static MobileDeliveryGeneral.Definitions.MsgTypes;
 
 namespace MobileDeliveryGeneral.Data

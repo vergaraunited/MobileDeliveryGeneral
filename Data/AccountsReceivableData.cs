@@ -1,10 +1,6 @@
-﻿using MobileDeliveryGeneral.ExtMethods;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.Text;
 using static MobileDeliveryGeneral.Definitions.MsgTypes;
-using System.Drawing;
 
 namespace MobileDeliveryGeneral.Data
 {

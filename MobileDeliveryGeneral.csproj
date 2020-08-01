@@ -41,6 +41,7 @@
  
 
   <ItemGroup>
+    <Folder Include="Settings\" />
     <Folder Include="Threading\" />
   </ItemGroup>
  

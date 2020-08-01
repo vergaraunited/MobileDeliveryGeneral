@@ -1,7 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using MobileDeliveryGeneral.ExtMethods;
-using MobileDeliveryGeneral.Interfaces.DataInterfaces;
 using static MobileDeliveryGeneral.Definitions.MsgTypes;
 
 namespace MobileDeliveryGeneral.Data

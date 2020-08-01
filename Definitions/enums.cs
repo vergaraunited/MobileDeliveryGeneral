@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MobileDeliveryGeneral.Definitions
+﻿namespace MobileDeliveryGeneral.Definitions
 {
     public static class enums
     {

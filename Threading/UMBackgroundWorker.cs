@@ -88,7 +88,12 @@ namespace MobileDeliveryGeneral.Threading
             try
             {
                 Request reqInfo = (Request)parameters[1];
+                ProcessMsgDelegateRXRaw pmd = (ProcessMsgDelegateRXRaw)parameters[2];
+            
+
                 Logger.Info($"bgWorker_DoWork {Enum.GetName(typeof(eCommand), req.command)} ");
+
+                //pmd(req, sm)
                 switch (req.command)
                 {
                     case eCommand.Drivers:

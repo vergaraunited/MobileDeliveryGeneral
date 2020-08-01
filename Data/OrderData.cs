@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using MobileDeliveryGeneral.Definitions;
 using static MobileDeliveryGeneral.Definitions.MsgTypes;
 

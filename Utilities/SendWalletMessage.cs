@@ -1,7 +1,4 @@
-﻿using MobileDeliveryGeneral.Interfaces;
-using static MobileDeliveryGeneral.Definitions.MsgTypes;
-
-namespace MobileDeliveryGeneral.Utilities
+﻿namespace MobileDeliveryGeneral.Utilities
 {
     //public class SendWalletMessage : isaSendWalletMessageCallback
     //{

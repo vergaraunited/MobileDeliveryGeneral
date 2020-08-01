@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Runtime.InteropServices;
-using MobileDeliveryGeneral.ExtMethods;
-using MobileDeliveryGeneral.Interfaces.DataInterfaces;
 using static MobileDeliveryGeneral.Definitions.MsgTypes;
 
 namespace MobileDeliveryGeneral.Data
 {
-   // [StructLayout(LayoutKind.Sequential, Pack = 1)]
+    // [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public class ManifestDetailsData : BaseData<ManifestDetailsData>
     {
         public override eCommand Command { get; set; } = eCommand.ManifestDetails;

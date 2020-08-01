@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace MobileDeliveryGeneral.Utilities
 {
@@ -28,11 +27,15 @@ namespace MobileDeliveryGeneral.Utilities
         
         public void Raise(T args)
         {
-            foreach (var it in currentObservers)
-                //foreach(var it in ob)
+            try
+            {
+                foreach (var it in currentObservers)
+                    //foreach(var it in ob)
                     it(args);
-            //foreach (var observer in currentObservers)
-            //    observer.OnNext(value);
+                //foreach (var observer in currentObservers)
+                //    observer.OnNext(value);
+            }
+            catch (Exception ex) { }
         }
 
         public IDisposable Subscribe(Action<T> action)

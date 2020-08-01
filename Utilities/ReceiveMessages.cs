@@ -1,5 +1,4 @@
-﻿using System;
-using MobileDeliveryGeneral.Interfaces;
+﻿using MobileDeliveryGeneral.Interfaces;
 using static MobileDeliveryGeneral.Definitions.MsgTypes;
 
 namespace MobileDeliveryGeneral.Utilities

@@ -1,28 +1,34 @@
 ﻿using System;
 using System.Threading.Tasks;
 using MobileDeliveryGeneral.Interfaces;
+using MobileDeliveryGeneral.Interfaces.Interfaces;
 
 namespace MobileDeliveryGeneral.Utilities
 {
     public class ProcessMessages
     {
         ProcessMsgDelegateRXRaw cbMsgProcessorRxRaw;
-        Func<byte[], Task> cbsend;
+        Func <byte[],Task> cbsend;
 
         public ProcessMessages(ProcessMsgDelegateRXRaw pmd)
         {
             cbMsgProcessorRxRaw = pmd;
         }
 
-        public ProcessMessages(ProcessMsgDelegateRXRaw pmd, Func<byte[], Task> cbsend) { 
+        //public ProcessMessages(ProcessMsgDelegateRXRaw pmd, Action<byte[], IHandler, Task> cbsend) { 
+        //    cbMsgProcessorRxRaw = pmd;
+        //    this.cbsend = cbsend;
+        //}
+        public ProcessMessages(ProcessMsgDelegateRXRaw pmd, Func<byte[], Task> cbsend)
+        {
             cbMsgProcessorRxRaw = pmd;
             this.cbsend = cbsend;
         }
 
-        public void ProcessMessage(byte[] byte_cmd, Func<byte[], Task> cbsend)
-        {
-            cbMsgProcessorRxRaw(byte_cmd, cbsend);
-        }
+        //public void ProcessMessage(byte[] byte_cmd, Func<byte[], Task> cbsend)
+        //{
+        //    cbMsgProcessorRxRaw(byte_cmd, cbsend);
+        //}
 
         public void ProcessMessage(byte[] byte_cmd)
         {

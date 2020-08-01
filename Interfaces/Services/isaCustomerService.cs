@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MobileDeliveryGeneral.Interfaces.Services
+﻿namespace MobileDeliveryGeneral.Interfaces.Services
 {
     public interface isaCustomerService<IMDMMessage>
     {
